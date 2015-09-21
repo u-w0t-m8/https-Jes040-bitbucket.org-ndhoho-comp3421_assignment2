@@ -1,29 +1,23 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+This README is about how the potato explore the wonders of bun bo hue jungle, in the journey to meet the DOGE goddess for a such legendary much majestic many holy Excalibur sword to tackle the LVL3421 Graphic Assignment 2 evil boss.
 
 ### What is this repository for? ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* For Potato heads
+![DOGE Goddess1](https://upload.wikimedia.org/wikipedia/en/5/5f/Original_Doge_meme.jpg)
 
 ### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+* Too complicated
+![DOGE Goddess2](http://weknowmemes.com/generator/uploads/generated/g1387883614110811294.jpg) 
+
 
 ### Contribution guidelines ###
 
-* Writing tests
-* Code review
-* Other guidelines
+* None.
 
 ### Who do I talk to? ###
 
-* Repo owner or admin
-* Other community or team contact
+* Jessica Senpai
+* DOGE Goddess
