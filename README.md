@@ -5,12 +5,12 @@ This README is about how the potato explore the wonders of bun bo hue jungle, in
 ### What is this repository for? ###
 
 * For Potato heads
-![DOGE Goddess1](https://upload.wikimedia.org/wikipedia/en/5/5f/Original_Doge_meme.jpg)
+* ![DOGE Goddess1](https://upload.wikimedia.org/wikipedia/en/5/5f/Original_Doge_meme.jpg)
 
 ### How do I get set up? ###
 
 * Too complicated
-![DOGE Goddess2](http://weknowmemes.com/generator/uploads/generated/g1387883614110811294.jpg) 
+* ![DOGE Goddess2](http://weknowmemes.com/generator/uploads/generated/g1387883614110811294.jpg) 
 
 
 ### Contribution guidelines ###
