@@ -9,7 +9,19 @@ This README is about how the potato explore the wonders of bun bo hue jungle, in
 
 ### How do I get set up? ###
 
-* Too complicated
+1. Open Eclipse
+2. Click on 
+```
+#!text
+
+Help
+```
+
+<pre>
+help
+<code>
+3. Click Install New Software
+4. 
 * ![DOGE Goddess2](http://weknowmemes.com/generator/uploads/generated/g1387883614110811294.jpg) 
 
 
