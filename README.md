@@ -8,7 +8,8 @@ This README is about how the potato explore the wonders of bun bo hue jungle, in
 * ![DOGE Goddess1](https://upload.wikimedia.org/wikipedia/en/5/5f/Original_Doge_meme.jpg)
 
 ### How do I get set up? ###
-* this is base on how i set it up on my mac
+**this is base on how i set it up on my mac**
+
 1. Open Eclipse
 2. Click on `Help` Menu
 3. Click `Install New Software`
@@ -22,7 +23,7 @@ This README is about how the potato explore the wonders of bun bo hue jungle, in
 12. Set up ur Directory. Then click `next`.
 13. Select `Import as general project`, click `next` and `finish`
 14. **now** go to the directory of where you set up your project.
-15. Open `.project` file its a hidden file, replace it with **after the line <name>xxx</name>*
+15. Open `.project` file its a hidden file, replace it with **after the line <name>xxx</name>**
 ```
 #!text
 
