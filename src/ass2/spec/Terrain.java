@@ -163,4 +163,28 @@ public class Terrain {
     }
 
 
+    /**
+     * Drawing a mesh of triangles
+     * 
+     * Example:
+     * (0,0,0)  (1,0.5,0)   
+     * 		+-----+
+     * 		|    /|  
+     * 		|  /  |
+     * 		|/    |
+     * 		+-----+
+     * 	(0,0,1)  (1,0.3,1)
+     * (x, y, z) where y = altitudes
+     * 
+     * @param gl
+     */
+    public void draw(GL2 gl){
+    	
+    	for(int x = 0; x < mySize.getWidth()-1; x++){
+    		for(int z = 0; z < mySize.getHeight()-1; z++){
+    			
+    		}
+    	}
+    	
+    }
 }

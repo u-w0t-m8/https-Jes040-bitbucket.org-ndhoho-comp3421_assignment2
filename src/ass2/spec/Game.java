@@ -3,12 +3,14 @@ package ass2.spec;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLJPanel;
 import javax.swing.JFrame;
+
 import com.jogamp.opengl.util.FPSAnimator;
 
 
@@ -64,7 +66,7 @@ public class Game extends JFrame implements GLEventListener{
 	@Override
 	public void display(GLAutoDrawable drawable) {
 		// TODO Auto-generated method stub
-		
+		GL2 gl = drawable.getGL().getGL2();
 	}
 
 	@Override
