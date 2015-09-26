@@ -67,6 +67,7 @@ public class Game extends JFrame implements GLEventListener{
 	public void display(GLAutoDrawable drawable) {
 		// TODO Auto-generated method stub
 		GL2 gl = drawable.getGL().getGL2();
+		myTerrain.draw(gl);
 	}
 
 	@Override

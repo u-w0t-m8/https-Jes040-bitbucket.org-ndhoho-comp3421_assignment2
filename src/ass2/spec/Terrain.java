@@ -175,16 +175,70 @@ public class Terrain {
      * 		+-----+
      * 	(0,0,1)  (1,0.3,1)
      * (x, y, z) where y = altitudes
-     * 
+     * counter-clockwise for front facing
      * @param gl
      */
     public void draw(GL2 gl){
     	
     	for(int x = 0; x < mySize.getWidth()-1; x++){
     		for(int z = 0; z < mySize.getHeight()-1; z++){
+    			// x0 x1 x2
+    			// y0 y1 y2
+    			// z0 z1 z2
+    			double[][] LeftTriangle = {{x, x, x+1},
+    								{getGridAltitude(x,z), getGridAltitude(x,z+1), getGridAltitude(x+1,z)},
+    								{z, z+1, z}};
+    			double[][] RightTriangle = {{x+1, x+1, x},
+    								{getGridAltitude(x+1,z+1), getGridAltitude(x+1,z), getGridAltitude(x,z+1)},
+    								{z+1, z, z+1}};
     			
+    			double [] LeftTriNormal = calcNormal(LeftTriangle, 2);
+    			double [] RightTriNormal = calcNormal(RightTriangle, 2);
+    			
+    			gl.glBegin(GL2.GL_TRIANGLES);
+    				gl.glNormal3d(LeftTriNormal[0], LeftTriNormal[1], LeftTriNormal[2]);
+    				gl.glVertex3d(LeftTriangle[0][0], LeftTriangle[1][0], LeftTriangle[2][0]);
+    				gl.glVertex3d(LeftTriangle[0][1], LeftTriangle[1][1], LeftTriangle[2][1]);
+    				gl.glVertex3d(LeftTriangle[0][2], LeftTriangle[1][2], LeftTriangle[2][2]);
+    			gl.glEnd();
+    			
+    			gl.glBegin(GL2.GL_TRIANGLES);
+//					gl.glNormal3d(RightTriNormal[0], RightTriNormal[1], RightTriNormal[2]);
+					gl.glVertex3d(RightTriangle[0][0], RightTriangle[1][0], RightTriangle[2][0]);
+    				gl.glVertex3d(RightTriangle[0][1], RightTriangle[1][1], RightTriangle[2][1]);
+    				gl.glVertex3d(RightTriangle[0][2], RightTriangle[1][2], RightTriangle[2][2]);
+    			gl.glEnd();
+    			
+    			}
     		}
     	}
-    	
-    }
+
+    /**
+     * Newell's Method for computing face normal. lecture note 04_3D page 25
+     * 
+     * @param triangleCoord
+     * @param vertices
+     * @return
+     */
+	public double[] calcNormal(double[][] triangleCoord, int vertices) {
+		double nx = 0;
+		double ny = 0;
+		double nz = 0;
+		
+		for(int i = 0; i < vertices; i++){
+			nx += (triangleCoord[1][i] - triangleCoord[1][i+1]) * (triangleCoord[2][i] + triangleCoord[2][i+1]);
+		}
+		
+		for(int j = 0; j < vertices; j++){
+			ny += (triangleCoord[2][j] - triangleCoord[2][j+1]) * (triangleCoord[0][j] + triangleCoord[0][j+1]);
+		}
+		
+		for(int k = 0; k < vertices; k++){
+			nz += (triangleCoord[0][k] - triangleCoord[0][k+1]) * (triangleCoord[1][k] - triangleCoord[1][k+1]);
+		}
+		
+		double[] normal = {nx, ny, nz};
+		return normal;
+	}
+    
 }
