@@ -9,6 +9,7 @@ import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLJPanel;
+import javax.media.opengl.glu.GLU;
 import javax.swing.JFrame;
 
 import com.jogamp.opengl.util.FPSAnimator;
@@ -83,9 +84,12 @@ public class Game extends JFrame implements GLEventListener{
 	}
 
 	@Override
-	public void reshape(GLAutoDrawable drawable, int x, int y, int width,
-			int height) {
+	public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
 		// TODO Auto-generated method stub
+   	 GL2 gl = drawable.getGL().getGL2();
+     gl.glMatrixMode(GL2.GL_PROJECTION);
+     gl.glLoadIdentity();
+     gl.glOrtho(-9, 9, -9, 9, -9, 9); // testing
 		
 	}
 }
