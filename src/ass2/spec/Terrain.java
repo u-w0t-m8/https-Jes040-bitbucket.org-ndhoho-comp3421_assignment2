@@ -124,6 +124,8 @@ public class Terrain {
      * Non-integer points should be interpolated from neighbouring grid points
      * 
      * TO BE COMPLETED
+     *  Using equation from:
+     *  http://www.ajdesigner.com/phpinterpolation/bilinear_interpolation_equation.php
      * 
      * @param x
      * @param z
@@ -131,12 +133,27 @@ public class Terrain {
      */
     public double altitude(double x, double z) {
         double altitude = 0;
-
         
+        int x1 = (int) Math.floor(x);
+        int x2 = (int) Math.ceil(x);
+        int z1 = (int) Math.floor(z);
+        int z2 = (int) Math.ceil(z);
+        
+        double a11 = getGridAltitude(x1,z1);
+        double a21 = getGridAltitude(x2,z1);
+        double a12 = getGridAltitude(x1,z2);
+        double a22 = getGridAltitude(x2,z2);
+
+        double p1 = a11 * (((x2 - x) * (z2 - z)) / ((x2 - x1) * (z2 - z1)));
+        double p2 = a21 * (((x - x1) * (z2 - z)) / ((x2 - x1) * (z2 - z1)));
+        double p3 = a12 * (((x2 - x) * (z - z1)) / ((x2 - x1) * (z2 - z1)));
+        double p4 = a22 * (((x - x1) * (z - z1)) / ((x2 - x1) * (z2 - z1)));
+
+        altitude = p1 + p2 + p3 + p4;
         
         return altitude;
     }
-
+    
     /**
      * Add a tree at the specified (x,z) point. 
      * The tree's y coordinate is calculated from the altitude of the terrain at that point.
@@ -203,7 +220,7 @@ public class Terrain {
     			gl.glEnd();
     			
     			gl.glBegin(GL2.GL_TRIANGLES);
-//					gl.glNormal3d(RightTriNormal[0], RightTriNormal[1], RightTriNormal[2]);
+					gl.glNormal3d(RightTriNormal[0], RightTriNormal[1], RightTriNormal[2]);
 					gl.glVertex3d(RightTriangle[0][0], RightTriangle[1][0], RightTriangle[2][0]);
     				gl.glVertex3d(RightTriangle[0][1], RightTriangle[1][1], RightTriangle[2][1]);
     				gl.glVertex3d(RightTriangle[0][2], RightTriangle[1][2], RightTriangle[2][2]);
