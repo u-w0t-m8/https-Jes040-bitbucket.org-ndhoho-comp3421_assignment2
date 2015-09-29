@@ -38,7 +38,7 @@ public class Tree {
      */
     public void draw(GL2 gl){
     	GLU glu = new GLU();
-    	System.out.println("DrawTree");
+//    	System.out.println("DrawTree");
     	gl.glPushMatrix();
     	
         gl.glTranslated(myPos[0], myPos[1], myPos[2]);        

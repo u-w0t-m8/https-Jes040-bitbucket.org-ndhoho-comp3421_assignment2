@@ -123,6 +123,7 @@ public class Game extends JFrame implements GLEventListener{
     	// Ambient light source
     	gl.glEnable(GL2.GL_LIGHT0); 
     	
+    	gl.glEnable(GL2.GL_NORMALIZE);
     	/****************************************************/
     	
 	}
