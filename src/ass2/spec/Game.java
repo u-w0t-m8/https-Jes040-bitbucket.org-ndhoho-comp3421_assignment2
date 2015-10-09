@@ -23,6 +23,10 @@ import com.jogamp.opengl.util.FPSAnimator;
  */
 public class Game extends JFrame implements GLEventListener{
 
+	//Our Extra Stuff
+	private Camera camera;
+	private KeyboardListener keyboardlistener;
+	
 	// create an array of already loaded textures and just bind the one you need whenever you need it.
     private Terrain myTerrain;
 
@@ -44,6 +48,10 @@ public class Game extends JFrame implements GLEventListener{
           
           // event listener to handle rendering events
           panel.addGLEventListener(this);
+          
+          camera = new Camera();
+          keyboardlistener = new KeyboardListener(camera);
+          panel.addKeyListener(keyboardlistener);
  
           // Add an animator to call 'display' at 60fps        
           FPSAnimator animator = new FPSAnimator(60);
