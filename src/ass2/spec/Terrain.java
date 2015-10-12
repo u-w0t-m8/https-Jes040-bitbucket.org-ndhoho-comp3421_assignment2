@@ -134,11 +134,15 @@ public class Terrain {
 	public double altitude(double x, double z) {
 		double altitude = 0;
 
+		//getting the floor and ceil value of x and z
+		// x1 ... x ... x2
+		// z1 ... z ... z2
 		int x1 = (int) Math.floor(x);
 		int x2 = (int) Math.ceil(x);
 		int z1 = (int) Math.floor(z);
 		int z2 = (int) Math.ceil(z);
 
+		//get duh Y value 
 		double a11 = getGridAltitude(x1,z1);
 		double a21 = getGridAltitude(x2,z1);
 		double a12 = getGridAltitude(x1,z2);

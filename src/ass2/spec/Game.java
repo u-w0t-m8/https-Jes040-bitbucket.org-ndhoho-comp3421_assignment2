@@ -49,7 +49,7 @@ public class Game extends JFrame implements GLEventListener{
           // event listener to handle rendering events
           panel.addGLEventListener(this);
           
-          camera = new Camera();
+          camera = new Camera(myTerrain);
           keyboardlistener = new KeyboardListener(camera);
           panel.addKeyListener(keyboardlistener);
  

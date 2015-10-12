@@ -4,6 +4,12 @@ import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 
 public class Camera implements GLEventListener{
+	
+	private Terrain terrain;
+	
+	public Camera(Terrain terrain){
+		this.terrain = terrain;
+	}
 
 	@Override
 	public void display(GLAutoDrawable arg0) {
