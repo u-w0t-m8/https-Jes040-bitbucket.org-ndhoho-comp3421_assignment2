@@ -19,16 +19,18 @@ public class Road {
     //Our Code
     private List<Polygon> myMesh;
     // how much the cross-section is scaled before extrusion
-    private static final double SCALE = 0.5;
+    private static final double SCALE = 0.01;
+    private Terrain terrain;
     
     /** 
      * Create a new road starting at the specified point
      */
-    public Road(double width, double x0, double y0) {
+    public Road(double width, double x0, double y0, Terrain terrain) {
         myWidth = width;
         myPoints = new ArrayList<Double>();
         myPoints.add(x0);
         myPoints.add(y0);
+        this.terrain = terrain;
     }
 
     /**
@@ -37,12 +39,13 @@ public class Road {
      * @param width
      * @param spine
      */
-    public Road(double width, double[] spine) {
+    public Road(double width, double[] spine, Terrain terrain) {
         myWidth = width;
         myPoints = new ArrayList<Double>();
         for (int i = 0; i < spine.length; i++) {
             myPoints.add(spine[i]);
         }
+        this.terrain = terrain;
     }
 
     /**
@@ -278,7 +281,7 @@ public class Road {
         for(int i = 0; i < size(); i++){
 			for (double j = 0.0; j < 1.0; j += 0.1) {
 	        	double[] pointOnSpine = point(i+j);
-	        	spinePoints.add(new Point(pointOnSpine[0], 2, pointOnSpine[1])); //I dont get this Value.. y 
+	        	spinePoints.add(new Point(pointOnSpine[0], terrain.altitude(pointOnSpine[0],pointOnSpine[1]), pointOnSpine[1])); //I dont get this Value.. y 
 			}
         }
         
