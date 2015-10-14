@@ -36,18 +36,22 @@ public class KeyboardListener implements KeyListener{
 		switch(e.getKeyCode()) {
         case KeyEvent.VK_UP:
         	if(DEBUG) System.out.println("Key: Up");
+        	camera.forward();
             break;
 
         case KeyEvent.VK_DOWN:
         	if(DEBUG) System.out.println("Key: Down");
+        	camera.backward();
             break;
 
         case KeyEvent.VK_LEFT:
         	if(DEBUG) System.out.println("Key: Left");
+        	camera.turnLeft();
             break;
 
         case KeyEvent.VK_RIGHT:
         	if(DEBUG) System.out.println("Key: Right");
+        	camera.turnRight();
             break;
 		}
 		

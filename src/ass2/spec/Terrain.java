@@ -236,6 +236,11 @@ public class Terrain {
 		for(Tree tree: myTrees){
 			tree.draw(gl);
 		}
+		
+		for (Road road : myRoads) {
+			road.draw(gl);
+		}
+		
 	}
 
 	/**

@@ -109,6 +109,7 @@ public class Game extends JFrame implements GLEventListener{
 		//draw terrain
 		myTerrain.draw(gl);
 		
+		
 		//camera View
 		camera.setView(gl);
 	}
