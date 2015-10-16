@@ -11,6 +11,8 @@ public class Camera implements GLEventListener{
 
 	private Terrain terrain;
 	
+	private double aspect; 
+	
 	private float test1;
 	private float test2;
 	private float test3;
@@ -18,6 +20,7 @@ public class Camera implements GLEventListener{
 	
 	public Camera(Terrain terrain){
 		this.terrain = terrain;
+		aspect = 1.0;
 		test1 = -5f;
 		test2 = 0f;
 		test3 = 12f;
@@ -31,8 +34,8 @@ public class Camera implements GLEventListener{
 		GLU glu = new GLU();
 
 		//gluPerspective(fieldOfView, aspectRatio, near, far)
-		glu.gluPerspective(100, 1, 1, 20);
-		
+		glu.gluPerspective(100, aspect, 0.1, 20);
+
 		//Number took from teapotview week4 example code
 		//FUCKING MAGICAL CODE now i need to figure out the right number
 		//gluLookAt(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ)
@@ -43,6 +46,11 @@ public class Camera implements GLEventListener{
 
 	}
 
+	public void setAspectRatio(double ratio){
+		aspect = ratio;
+		if(DEBUG) System.out.println(aspect);
+	}
+	
 	public void forward(){
 		test1 -= 1;
 	}
@@ -78,9 +86,8 @@ public class Camera implements GLEventListener{
 	}
 
 	@Override
-	public void reshape(GLAutoDrawable arg0, int arg1, int arg2, int arg3, int arg4) {
-		// TODO Auto-generated method stub
-		
+	public void reshape(GLAutoDrawable arg0, int x, int y, int w, int h) {
+		// TODO Auto-generated method stub		
 	}
 
 }

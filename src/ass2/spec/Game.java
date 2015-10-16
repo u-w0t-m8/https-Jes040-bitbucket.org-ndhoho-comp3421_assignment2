@@ -97,7 +97,7 @@ public class Game extends JFrame implements GLEventListener{
 
 		// Fill/LineColour
 		gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
-		gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_FILL);
+		gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_FILL); 
 
 		//turn on back face culling
 		gl.glEnable(GL2.GL_CULL_FACE);
@@ -169,6 +169,7 @@ public class Game extends JFrame implements GLEventListener{
 		gl.glMatrixMode(GL2.GL_PROJECTION);
 		gl.glLoadIdentity();
 //		gl.glOrtho(-9, 9, -9, 9, -9, 9); // testing
-
+		double aspect = (1.0 * width) / height;
+		camera.setAspectRatio(aspect);
 	}
 }

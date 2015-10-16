@@ -17,8 +17,10 @@ public class Tree {
 	double cylinderRadius = 0.1;
 	double sphereRadius = 0.5;
 	
-	private static final int SLICES = 32;
-	private static final int STACKS = 50;
+	//It does generate a Mesh however my value for slices and stacks
+	//are high enough to make it not visble, lower it to 10, and you can see a mesh
+	private static final int SLICES = 32; //32
+	private static final int STACKS = 50; //50
 	
     public Tree(double x, double y, double z) {
         myPos = new double[3];
