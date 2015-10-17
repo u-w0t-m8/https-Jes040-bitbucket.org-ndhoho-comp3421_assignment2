@@ -58,7 +58,6 @@ public class Camera implements GLEventListener{
 
 		double eyeX = myPosition[0] - myRotation[0];
 		
-		
 		//Border restrictions
 		if(myPosition[0] < 0){
 			myPosition[0] = 0;
@@ -69,11 +68,21 @@ public class Camera implements GLEventListener{
 		} else if (myPosition[1] > terrain.size().getHeight() - 1){
 			myPosition[1] = terrain.size().getHeight() - 1;
 		}
-		myPosition[2] = terrain.altitude(myPosition[0],myPosition[1]);
 		
 		if(DEBUG) System.out.println(myPosition[0] + " " + myPosition[1] + " " + myPosition[2] + " " + terrain.size().getWidth());
 		
-		double eyeY = myPosition[2];
+		myPosition[2] = terrain.altitude(myPosition[0],myPosition[1]);
+
+		double eyeY;
+		if(myPosition[0] <= 0 || myPosition[1] <= 0){
+			eyeY = 0;
+		} else if(myPosition[0] >= terrain.size().getWidth() - 1 || myPosition[1] >= terrain.size().getHeight() - 1){
+			eyeY = 0;
+		} else {
+			eyeY = myPosition[2];
+		}
+		
+		if(DEBUG) System.out.println(eyeY);
 		
     	double eyeZ = myPosition[1] - myRotation[1];
 		
@@ -82,7 +91,7 @@ public class Camera implements GLEventListener{
     	
     	if(DEBUG) System.out.println(myAngle + " " + myRotation[0] + " " + myRotation[1]);
     	
-        glu.gluLookAt(eyeX, 3, eyeZ, viewX, viewY ,viewZ, 0, 1, 0);
+        glu.gluLookAt(eyeX, eyeY+3, eyeZ, viewX, viewY ,viewZ, 0, 1, 0);
         if(DEBUG) System.out.println(viewY);
 	}
 
