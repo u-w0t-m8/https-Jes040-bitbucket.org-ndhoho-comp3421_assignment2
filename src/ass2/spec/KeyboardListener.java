@@ -30,18 +30,6 @@ public class KeyboardListener implements KeyListener, MouseMotionListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * The up arrow moves forward
-	 * The down arrow moves backward
-	 * The left arrow turns left
-	 * The right arrow turns right.
-	 */
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
 		switch(e.getKeyCode()) {
         case KeyEvent.VK_UP:
         	if(DEBUG) System.out.println("Key: Up");
@@ -62,8 +50,18 @@ public class KeyboardListener implements KeyListener, MouseMotionListener{
         	if(DEBUG) System.out.println("Key: Right");
         	camera.turnRight();
             break;
-		}
-		
+		}	
+	}
+
+	/**
+	 * The up arrow moves forward
+	 * The down arrow moves backward
+	 * The left arrow turns left
+	 * The right arrow turns right.
+	 */
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
 	}
 
 	@Override

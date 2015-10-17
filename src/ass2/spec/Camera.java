@@ -13,17 +13,25 @@ public class Camera implements GLEventListener{
 	
 	private double aspect; 
 	
-	private float test1;
-	private float test2;
-	private float test3;
-	private float test4;
+	double myAngle;
+	
+	private double[] myPosition;
+	private double[] myRotation;
 	
 	public Camera(Terrain terrain){
 		this.terrain = terrain;
 		aspect = 1.0;
-		test1 = -5f;
-		test2 = 0f;
-		test3 = 12f;
+		
+		myAngle = 90.3;
+		
+        myPosition = new double[3];
+        myPosition[0] = 0;
+        myPosition[1] = 0;
+        myPosition[2] = terrain.altitude(0,0);
+        
+        myRotation = new double[2];
+        myRotation[0] = 0;
+        myRotation[1] = 0;
 	}
 	
 	public void setView(GL2 gl){
@@ -34,16 +42,24 @@ public class Camera implements GLEventListener{
 		GLU glu = new GLU();
 
 		//gluPerspective(fieldOfView, aspectRatio, near, far)
-		glu.gluPerspective(100, aspect, 0.1, 20);
+		glu.gluPerspective(100, aspect, 1, 20);
 
 		//Number took from teapotview week4 example code
 		//FUCKING MAGICAL CODE now i need to figure out the right number
 		//gluLookAt(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ)
-		glu.gluLookAt(test1, 3, test3, 0, 0, 0, 0, 1, 0);
-		if(DEBUG) System.out.println(test1 + " " + test3);
-//		glu.gluLookAt(0, 2, 5, 0, 0, 0, 0, 1, 0);
-//		glu.gluLookAt(test1, 2, test2, 0, 0, 0, 0, 1, 0);
+		
+		myRotation[0] = Math.sin(myAngle);
+		myRotation[1] = -Math.cos(myAngle);
 
+		double eyeX = myPosition[0] - myRotation[0];
+    	double eyeZ = myPosition[1] - myRotation[1];
+		
+    	double viewX = myPosition[0] + myRotation[0];
+    	double viewZ = myPosition[1] + myRotation[1];
+    	
+    	if(DEBUG) System.out.println(myAngle + " " + myRotation[0] + " " + myRotation[1]);
+    	
+        glu.gluLookAt(eyeX, 3, eyeZ, viewX, 0 ,viewZ, 0, 1, 0);
 	}
 
 	public void setAspectRatio(double ratio){
@@ -52,19 +68,27 @@ public class Camera implements GLEventListener{
 	}
 	
 	public void forward(){
-		test1 -= 1;
+		double scale = 0.2;
+		myPosition[0] += myRotation[0] * scale;
+		myPosition[1] += myRotation[1] * scale;
 	}
 	
 	public void backward(){
-		test1 += 1;
+		double scale = 0.2;
+		myPosition[0] -= myRotation[0] * scale;
+		myPosition[1] -= myRotation[1] * scale;
 	}
 	
 	public void turnLeft(){
-		test3 += 1;
+		myAngle += -0.1;
+		myRotation[0] = Math.sin(myAngle);
+		myRotation[1] = -Math.cos(myAngle);
 	}
 	
 	public void turnRight(){
-		test3 -= 1;
+		myAngle += 0.1;
+		myRotation[0] = Math.sin(myAngle);
+		myRotation[1] = -Math.cos(myAngle);
 	}
 	
 	@Override
