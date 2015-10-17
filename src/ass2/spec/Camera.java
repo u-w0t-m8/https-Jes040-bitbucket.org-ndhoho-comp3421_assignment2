@@ -26,6 +26,7 @@ public class Camera implements GLEventListener{
 		
 		myAngle = 90.3;
 		
+		//x, z, y
         myPosition = new double[3];
         myPosition[0] = 0;
         myPosition[1] = 0;
@@ -35,7 +36,7 @@ public class Camera implements GLEventListener{
         myRotation[0] = 0;
         myRotation[1] = 0;
         
-        viewY = 0;
+        viewY = 1.2;
 	}
 	
 	public void setView(GL2 gl){
@@ -56,17 +57,33 @@ public class Camera implements GLEventListener{
 		myRotation[1] = -Math.cos(myAngle);
 
 		double eyeX = myPosition[0] - myRotation[0];
+		
+		
+		//Border restrictions
+		if(myPosition[0] < 0){
+			myPosition[0] = 0;
+		} else if(myPosition[1] < 0){
+			myPosition[1] = 0;
+		} else if(myPosition[0] > terrain.size().getWidth() - 1){
+			myPosition[0] = terrain.size().getWidth() - 1;
+		} else if (myPosition[1] > terrain.size().getHeight() - 1){
+			myPosition[1] = terrain.size().getHeight() - 1;
+		}
 		myPosition[2] = terrain.altitude(myPosition[0],myPosition[1]);
+		
+		if(DEBUG) System.out.println(myPosition[0] + " " + myPosition[1] + " " + myPosition[2] + " " + terrain.size().getWidth());
+		
 		double eyeY = myPosition[2];
+		
     	double eyeZ = myPosition[1] - myRotation[1];
 		
     	double viewX = myPosition[0] + myRotation[0];
-    	
     	double viewZ = myPosition[1] + myRotation[1];
     	
     	if(DEBUG) System.out.println(myAngle + " " + myRotation[0] + " " + myRotation[1]);
     	
-        glu.gluLookAt(eyeX, eyeY+3, eyeZ, viewX, viewY ,viewZ, 0, 1, 0);
+        glu.gluLookAt(eyeX, 3, eyeZ, viewX, viewY ,viewZ, 0, 1, 0);
+        if(DEBUG) System.out.println(viewY);
 	}
 
 	public void setAspectRatio(double ratio){
