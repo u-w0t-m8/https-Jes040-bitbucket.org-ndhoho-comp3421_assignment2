@@ -13,10 +13,12 @@ public class Camera implements GLEventListener{
 	
 	private double aspect; 
 	
-	double myAngle;
+	private double myAngle;
 	
 	private double[] myPosition;
 	private double[] myRotation;
+	
+	private double viewY;
 	
 	public Camera(Terrain terrain){
 		this.terrain = terrain;
@@ -32,6 +34,8 @@ public class Camera implements GLEventListener{
         myRotation = new double[2];
         myRotation[0] = 0;
         myRotation[1] = 0;
+        
+        viewY = 0;
 	}
 	
 	public void setView(GL2 gl){
@@ -52,14 +56,17 @@ public class Camera implements GLEventListener{
 		myRotation[1] = -Math.cos(myAngle);
 
 		double eyeX = myPosition[0] - myRotation[0];
+		myPosition[2] = terrain.altitude(myPosition[0],myPosition[1]);
+		double eyeY = myPosition[2];
     	double eyeZ = myPosition[1] - myRotation[1];
 		
     	double viewX = myPosition[0] + myRotation[0];
+    	
     	double viewZ = myPosition[1] + myRotation[1];
     	
     	if(DEBUG) System.out.println(myAngle + " " + myRotation[0] + " " + myRotation[1]);
     	
-        glu.gluLookAt(eyeX, 3, eyeZ, viewX, 0 ,viewZ, 0, 1, 0);
+        glu.gluLookAt(eyeX, eyeY+3, eyeZ, viewX, viewY ,viewZ, 0, 1, 0);
 	}
 
 	public void setAspectRatio(double ratio){
@@ -89,6 +96,14 @@ public class Camera implements GLEventListener{
 		myAngle += 0.1;
 		myRotation[0] = Math.sin(myAngle);
 		myRotation[1] = -Math.cos(myAngle);
+	}
+	
+	public void keyW(){
+		viewY += 0.15;
+	}
+	
+	public void keyS(){
+		viewY -= 0.15;
 	}
 	
 	@Override

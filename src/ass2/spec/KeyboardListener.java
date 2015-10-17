@@ -50,7 +50,17 @@ public class KeyboardListener implements KeyListener, MouseMotionListener{
         	if(DEBUG) System.out.println("Key: Right");
         	camera.turnRight();
             break;
-		}	
+		
+		case KeyEvent.VK_W:
+			if(DEBUG) System.out.println("Key: W");
+			camera.keyW();
+			break;
+		
+		case KeyEvent.VK_S:
+			if(DEBUG) System.out.println("Key: S");
+			camera.keyS();
+			break;
+		}
 	}
 
 	/**
@@ -67,8 +77,15 @@ public class KeyboardListener implements KeyListener, MouseMotionListener{
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
+		double prevYPoint = myMousePoint.getY();
 		myMousePoint = e.getPoint();
-		if(DEBUG) System.out.println(myMousePoint.toString());
+		//up is less
+		if((prevYPoint - myMousePoint.getY()) >= 1){
+			camera.keyW();
+		} else {
+			camera.keyS();
+		}
+		if(DEBUG) System.out.println(myMousePoint.toString() + " " + e.getPoint().getY());
 	}
 
 	@Override
