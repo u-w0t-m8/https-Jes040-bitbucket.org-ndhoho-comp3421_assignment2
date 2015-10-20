@@ -58,20 +58,21 @@ public class Tree {
 		
     	gl.glPushMatrix();
     	
-        gl.glTranslated(myPos[0], myPos[1], myPos[2]);        
-        gl.glRotated(270, 1.0, 0.0, 0.0);
+        gl.glTranslated(myPos[0], myPos[1], myPos[2]);
         
-        GLUquadric cylinder = glu.gluNewQuadric();
-        glu.gluQuadricNormals(cylinder, GL2.GL_SMOOTH);
-        glu.gluQuadricTexture(cylinder, true);
-        glu.gluCylinder(cylinder, cylinderRadius, cylinderRadius, height, SLICES, STACKS);
-    	gl.glBindTexture(GL2.GL_TEXTURE_2D, texture[0].getTextureId());
-		gl.glTexCoord2f(0.0f, 0.0f);
+    	gl.glPushMatrix();
+	        gl.glRotated(270, 1.0, 0.0, 0.0);
+	        GLUquadric cylinder = glu.gluNewQuadric();
+	        glu.gluQuadricNormals(cylinder, GL2.GL_SMOOTH);
+	        glu.gluQuadricTexture(cylinder, true);
+	        glu.gluCylinder(cylinder, cylinderRadius, cylinderRadius, height, SLICES, STACKS);
+	    	gl.glBindTexture(GL2.GL_TEXTURE_2D, texture[0].getTextureId());
+	    	gl.glTexCoord2f(0.0f, 0.0f);
+    	gl.glPopMatrix();
 
-
-		gl.glRotated(90, 1.0, 0.0, 0.0);
 		gl.glTranslated(0.0, height, 0.0);
-
+		gl.glRotated(90, 1.0, 0.0, 0.0);
+		
         GLUquadric sphere = glu.gluNewQuadric();
         glu.gluQuadricNormals(sphere, GL2.GL_SMOOTH);
         glu.gluQuadricTexture(sphere, true);
