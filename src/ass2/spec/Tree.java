@@ -23,9 +23,11 @@ public class Tree {
 	private static final int STACKS = 50; //50
 	
 	//Texture - Jess Replace the PICTURE!!!
-	private Texture texture[];
-    private final int NUM_TEXTURES = 2;
-	private String textureFileTreeTrunk = "src/ass2/images/brickRoad.jpg";
+	private Texture texture1;
+	private Texture texture2;
+    //private final int NUM_TEXTURES = 2;
+    //Added image
+	private String textureFileTreeTrunk = "src/ass2/images/treeTrunk.jpg";
     private String textureExtTreeTrunk = "jpg";
     
 	private String textureFileTreeBranches = "src/ass2/images/brickRoad.jpg";
@@ -49,16 +51,16 @@ public class Tree {
      */
     public void draw(GL2 gl){
     	GLU glu = new GLU();
-    	texture = new Texture[NUM_TEXTURES];
+    	//texture = new Texture[NUM_TEXTURES];
         
-        texture[0] = new Texture(gl,textureFileTreeTrunk,textureExtTreeTrunk,true);
-        texture[1] = new Texture(gl,textureFileTreeBranches,textureExtTreeBranches,true);
+        texture1 = new Texture(gl,textureFileTreeTrunk,textureExtTreeTrunk,true);
+        texture2 = new Texture(gl,textureFileTreeBranches,textureExtTreeBranches,true);
     	
 		gl.glTexEnvf(GL2.GL_TEXTURE_ENV, GL2.GL_TEXTURE_ENV_MODE, GL2.GL_MODULATE); 
 		
     	gl.glPushMatrix();
     	
-        gl.glTranslated(myPos[0], myPos[1], myPos[2]);
+        gl.glTranslated(getPosition()[0], getPosition()[1], getPosition()[2]);
         
     	gl.glPushMatrix();
 	        gl.glRotated(270, 1.0, 0.0, 0.0);
@@ -66,7 +68,7 @@ public class Tree {
 	        glu.gluQuadricNormals(cylinder, GL2.GL_SMOOTH);
 	        glu.gluQuadricTexture(cylinder, true);
 	        glu.gluCylinder(cylinder, cylinderRadius, cylinderRadius, height, SLICES, STACKS);
-	    	gl.glBindTexture(GL2.GL_TEXTURE_2D, texture[0].getTextureId());
+	    	gl.glBindTexture(GL2.GL_TEXTURE_2D, texture1.getTextureId());
 	    	gl.glTexCoord2f(0.0f, 0.0f);
     	gl.glPopMatrix();
 
@@ -77,7 +79,7 @@ public class Tree {
         glu.gluQuadricNormals(sphere, GL2.GL_SMOOTH);
         glu.gluQuadricTexture(sphere, true);
         glu.gluSphere(sphere, sphereRadius, SLICES, STACKS);
-        gl.glBindTexture(GL2.GL_TEXTURE_2D, texture[1].getTextureId());
+        gl.glBindTexture(GL2.GL_TEXTURE_2D, texture2.getTextureId());
 		gl.glTexCoord2f(0.0f, 0.0f);
 
         gl.glPopMatrix();
