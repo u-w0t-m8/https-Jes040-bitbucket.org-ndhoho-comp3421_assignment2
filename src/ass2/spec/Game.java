@@ -3,6 +3,7 @@ package ass2.spec;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLCapabilities;
@@ -13,8 +14,6 @@ import javax.media.opengl.glu.GLU;
 import javax.swing.JFrame;
 
 import com.jogamp.opengl.util.FPSAnimator;
-
-
 
 /**
  * COMMENT: Comment Game 
@@ -119,7 +118,6 @@ public class Game extends JFrame implements GLEventListener{
 		//draw terrain
 		myTerrain.draw(gl);
 		
-		
 		//camera View
 		camera.setView(gl);
 	}
@@ -160,6 +158,7 @@ public class Game extends JFrame implements GLEventListener{
 		gl.glEnable(GL2.GL_NORMALIZE);
 		/****************************************************/
 
+        gl.glEnable(GL.GL_TEXTURE_2D);
 	}
 
 	@Override

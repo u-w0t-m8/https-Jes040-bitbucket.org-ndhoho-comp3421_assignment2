@@ -13,10 +13,10 @@ public class Camera implements GLEventListener{
 	
 	private double aspect; 
 	
-	private double myAngle;
+	private static double myAngle;
 	
-	private double[] myPosition;
-	private double[] myRotation;
+	private static double[] myPosition;
+	private static double[] myRotation;
 	
 	private double viewY;
 	
@@ -91,10 +91,23 @@ public class Camera implements GLEventListener{
     	
     	if(DEBUG) System.out.println(myAngle + " " + myRotation[0] + " " + myRotation[1]);
     	
-        glu.gluLookAt(eyeX, eyeY+3, eyeZ, viewX, viewY ,viewZ, 0, 1, 0);
+        glu.gluLookAt(eyeX, eyeY+2, eyeZ, viewX, viewY ,viewZ, 0, 1, 0);
+        
         if(DEBUG) System.out.println(viewY);
 	}
 
+	public static double getMyAngle(){
+		return myAngle;
+	}
+	
+	public static double[] getMyPosition(){
+		return myPosition;
+	}
+	
+	public static double[] getMyRotation(){
+		return myRotation;
+	}
+	
 	public void setAspectRatio(double ratio){
 		aspect = ratio;
 		if(DEBUG) System.out.println(aspect);

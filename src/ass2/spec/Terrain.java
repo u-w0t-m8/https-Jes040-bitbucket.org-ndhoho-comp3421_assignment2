@@ -29,7 +29,15 @@ public class Terrain {
 	private List<Tree> myTrees;
 	private List<Road> myRoads;
 	private float[] mySunlight;
+	
+	private Avatar myAvatar;
 
+	//Texture - Jess Replace the PICTURE!!!
+	private Texture texture;
+	private String textureFileTerrain = "src/ass2/images/brickRoad.jpg";
+    private String textureExtTerrain = "jpg";
+
+	
 	/**
 	 * Create a new terrain
 	 *
@@ -42,6 +50,8 @@ public class Terrain {
 		myTrees = new ArrayList<Tree>();
 		myRoads = new ArrayList<Road>();
 		mySunlight = new float[3];
+		
+		myAvatar = new Avatar(this);
 	}
 
 	public Terrain(Dimension size) {
@@ -200,7 +210,12 @@ public class Terrain {
 	 * @param gl
 	 */
 	public void draw(GL2 gl){
+		
+    	texture = new Texture(gl,textureFileTerrain,textureExtTerrain,true);
+    	gl.glBindTexture(GL2.GL_TEXTURE_2D, texture.getTextureId());
+		gl.glTexEnvf(GL2.GL_TEXTURE_ENV, GL2.GL_TEXTURE_ENV_MODE, GL2.GL_MODULATE); 
 
+		
 		for(int x = 0; x < mySize.getWidth()-1; x++){
 			for(int z = 0; z < mySize.getHeight()-1; z++){
 				// x0 x1 x2
@@ -218,15 +233,21 @@ public class Terrain {
 
 				gl.glBegin(GL2.GL_TRIANGLES);
 					gl.glNormal3d(LeftTriNormal[0], LeftTriNormal[1], LeftTriNormal[2]);
+					gl.glTexCoord2d(0, 0);
 					gl.glVertex3d(LeftTriangle[0][0], LeftTriangle[1][0], LeftTriangle[2][0]);
+					gl.glTexCoord2d(0, 1);
 					gl.glVertex3d(LeftTriangle[0][1], LeftTriangle[1][1], LeftTriangle[2][1]);
+					gl.glTexCoord2d(1, 0);
 					gl.glVertex3d(LeftTriangle[0][2], LeftTriangle[1][2], LeftTriangle[2][2]);
 				gl.glEnd();
 
 				gl.glBegin(GL2.GL_TRIANGLES);
 					gl.glNormal3d(RightTriNormal[0], RightTriNormal[1], RightTriNormal[2]);
+					gl.glTexCoord2d(0, 1);
 					gl.glVertex3d(RightTriangle[0][0], RightTriangle[1][0], RightTriangle[2][0]);
+					gl.glTexCoord2d(1, 1);
 					gl.glVertex3d(RightTriangle[0][1], RightTriangle[1][1], RightTriangle[2][1]);
+					gl.glTexCoord2d(1, 0);
 					gl.glVertex3d(RightTriangle[0][2], RightTriangle[1][2], RightTriangle[2][2]);
 				gl.glEnd();
 
@@ -241,6 +262,7 @@ public class Terrain {
 			road.draw(gl);
 		}
 		
+		myAvatar.draw(gl);
 	}
 
 	/**
