@@ -44,6 +44,8 @@ public class Avatar {
 		if (DEBUG) System.out.println("x: " + myPosition[0] + " y: " + myPosition[2] + " z: " + myPosition[1]);
 		if (DEBUG) System.out.println("angle: " + myAngle );
 
+//		gl.glTranslated(0, 2, 0);
+		
 		gl.glTranslated(myPosition[0], cylinderHeights+myPosition[2], myPosition[1]);
 		gl.glRotated(-Math.toDegrees(myAngle+180), 0, 1, 0);
 		gl.glRotated(90, 1.0, 0.0, 0.0);
@@ -83,7 +85,7 @@ public class Avatar {
 
 		//Lower Body
 		GLUquadric sphere = glu.gluNewQuadric();
-		glu.gluQuadricNormals(sphere, GL2.GL_SMOOTH);
+//		glu.gluQuadricNormals(sphere, GL2.GL_SMOOTH);
 		glu.gluSphere(sphere, sphereRadius, SLICES, STACKS);
 
 		//Tail

@@ -49,7 +49,7 @@ public class Polygon {
         double green = myColor.getGreen() / 255.0;
         double blue = myColor.getBlue() / 255.0;
 
-        gl.glColor3d(red, green, blue);
+//        gl.glColor3d(red, green, blue);
 
         gl.glBegin(GL2.GL_POLYGON);
 
@@ -59,7 +59,9 @@ public class Polygon {
 
         // all vertices have the same normal
         gl.glNormal3d(myNormal[0], myNormal[1], myNormal[2]);
+
         for (Point p : myPoints) {
+        	gl.glTexCoord2d(p.x, p.z);
             p.draw(gl);
         }
         gl.glEnd();

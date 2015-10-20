@@ -22,6 +22,13 @@ public class Road {
     private static final double SCALE = 0.01;
     private Terrain terrain;
     
+	//Texture - Jess Replace the PICTURE!!!
+	private Texture texture;
+	private String textureFileRoad = "src/ass2/images/brickRoad.jpg";
+//	private String textureFileRoad = "src/ass2/images/road.jpg";
+    private String textureExtRoad = "jpg";
+    
+    
     /** 
      * Create a new road starting at the specified point
      */
@@ -317,6 +324,11 @@ public class Road {
     		return;
     	}
     	
+        texture = new Texture(gl,textureFileRoad,textureExtRoad,true);
+    	gl.glBindTexture(GL2.GL_TEXTURE_2D, texture.getTextureId());
+		gl.glTexEnvf(GL2.GL_TEXTURE_ENV, GL2.GL_TEXTURE_ENV_MODE, GL2.GL_MODULATE); 
+		
+    	
         gl.glMatrixMode(GL2.GL_MODELVIEW);
         gl.glLoadIdentity();
     	gl.glPushMatrix();
@@ -324,7 +336,7 @@ public class Road {
         gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_FILL);
         
         for (Polygon p : myMesh) {
-            p.draw(gl);                
+            p.draw(gl);
         }
     	gl.glPopMatrix();
 
