@@ -22,10 +22,9 @@ public class Road {
     private static final double SCALE = 0.01;
     private Terrain terrain;
     
-	//Texture - Jess Replace the PICTURE!!!
 	private Texture texture;
-	private String textureFileRoad = "src/ass2/images/brickRoad.jpg";
-//	private String textureFileRoad = "src/ass2/images/road.jpg";
+//	private String textureFileRoad = "src/ass2/images/brickRoad.jpg";
+	private String textureFileRoad = "src/ass2/images/road.jpg";
     private String textureExtRoad = "jpg";
     
     

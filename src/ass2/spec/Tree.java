@@ -27,10 +27,10 @@ public class Tree {
 	private Texture texture2;
     //private final int NUM_TEXTURES = 2;
     //Added image
-	private String textureFileTreeTrunk = "src/ass2/images/treeTrunk.jpg";
+	private String textureFileTreeTrunk = "src/ass2/images/treeTrunk2.jpg";
     private String textureExtTreeTrunk = "jpg";
     
-	private String textureFileTreeBranches = "src/ass2/images/brickRoad.jpg";
+	private String textureFileTreeBranches = "src/ass2/images/treeTop2.jpg";
     private String textureExtTreeBranches = "jpg";
 	
     public Tree(double x, double y, double z) {
