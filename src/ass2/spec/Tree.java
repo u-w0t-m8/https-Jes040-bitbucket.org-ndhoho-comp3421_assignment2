@@ -55,33 +55,42 @@ public class Tree {
         
         texture1 = new Texture(gl,textureFileTreeTrunk,textureExtTreeTrunk,true);
         texture2 = new Texture(gl,textureFileTreeBranches,textureExtTreeBranches,true);
-    	
-		gl.glTexEnvf(GL2.GL_TEXTURE_ENV, GL2.GL_TEXTURE_ENV_MODE, GL2.GL_MODULATE); 
-		
+    			
     	gl.glPushMatrix();
     	
         gl.glTranslated(getPosition()[0], getPosition()[1], getPosition()[2]);
-        
+	    
     	gl.glPushMatrix();
+    	gl.glEnable(GL2.GL_TEXTURE_GEN_S);
+	    gl.glEnable(GL2.GL_TEXTURE_GEN_T);
 	        gl.glRotated(270, 1.0, 0.0, 0.0);
 	        GLUquadric cylinder = glu.gluNewQuadric();
 	        glu.gluQuadricNormals(cylinder, GL2.GL_SMOOTH);
 	        glu.gluQuadricTexture(cylinder, true);
-	        glu.gluCylinder(cylinder, cylinderRadius, cylinderRadius, height, SLICES, STACKS);
 	    	gl.glBindTexture(GL2.GL_TEXTURE_2D, texture1.getTextureId());
-	    	gl.glTexCoord2f(0.0f, 0.0f);
+			gl.glTexEnvf(GL2.GL_TEXTURE_ENV, GL2.GL_TEXTURE_ENV_MODE, GL2.GL_MODULATE);
+	        glu.gluCylinder(cylinder, cylinderRadius, cylinderRadius, height, SLICES, STACKS);
+	        gl.glDisable(GL2.GL_TEXTURE_GEN_S); 
+		    gl.glDisable(GL2.GL_TEXTURE_GEN_T);
     	gl.glPopMatrix();
 
 		gl.glTranslated(0.0, height, 0.0);
 		gl.glRotated(90, 1.0, 0.0, 0.0);
 		
-        GLUquadric sphere = glu.gluNewQuadric();
-        glu.gluQuadricNormals(sphere, GL2.GL_SMOOTH);
-        glu.gluQuadricTexture(sphere, true);
-        glu.gluSphere(sphere, sphereRadius, SLICES, STACKS);
-        gl.glBindTexture(GL2.GL_TEXTURE_2D, texture2.getTextureId());
-		gl.glTexCoord2f(0.0f, 0.0f);
-
+    	gl.glPushMatrix();
+    	gl.glEnable(GL2.GL_TEXTURE_GEN_S);
+	    gl.glEnable(GL2.GL_TEXTURE_GEN_T);
+	        GLUquadric sphere = glu.gluNewQuadric();
+	        glu.gluQuadricNormals(sphere, GL2.GL_SMOOTH);
+	        glu.gluQuadricTexture(sphere, true);
+	        gl.glBindTexture(GL2.GL_TEXTURE_2D, texture2.getTextureId());
+			gl.glTexEnvf(GL2.GL_TEXTURE_ENV, GL2.GL_TEXTURE_ENV_MODE, GL2.GL_MODULATE); 
+	        glu.gluSphere(sphere, sphereRadius, SLICES, STACKS);
+	        gl.glDisable(GL2.GL_TEXTURE_GEN_S); 
+		    gl.glDisable(GL2.GL_TEXTURE_GEN_T);
+    	gl.glPopMatrix();
+        
         gl.glPopMatrix();
+
     }
 }
