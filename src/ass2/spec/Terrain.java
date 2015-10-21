@@ -243,11 +243,11 @@ public class Terrain {
 
 				gl.glBegin(GL2.GL_TRIANGLES);
 					gl.glNormal3d(RightTriNormal[0], RightTriNormal[1], RightTriNormal[2]);
-					gl.glTexCoord2d(0, 1);
-					gl.glVertex3d(RightTriangle[0][0], RightTriangle[1][0], RightTriangle[2][0]);
 					gl.glTexCoord2d(1, 1);
-					gl.glVertex3d(RightTriangle[0][1], RightTriangle[1][1], RightTriangle[2][1]);
+					gl.glVertex3d(RightTriangle[0][0], RightTriangle[1][0], RightTriangle[2][0]);
 					gl.glTexCoord2d(1, 0);
+					gl.glVertex3d(RightTriangle[0][1], RightTriangle[1][1], RightTriangle[2][1]);
+					gl.glTexCoord2d(0, 1);
 					gl.glVertex3d(RightTriangle[0][2], RightTriangle[1][2], RightTriangle[2][2]);
 				gl.glEnd();
 
