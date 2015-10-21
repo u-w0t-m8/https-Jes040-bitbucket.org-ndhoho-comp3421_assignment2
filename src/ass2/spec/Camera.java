@@ -18,8 +18,7 @@ public class Camera implements GLEventListener{
 	private static double[] myPosition;
 	private static double[] myRotation;
 	
-	private double viewY;
-	
+	private double viewY;	
 	public Camera(Terrain terrain){
 		this.terrain = terrain;
 		aspect = 1.0;
@@ -37,6 +36,7 @@ public class Camera implements GLEventListener{
         myRotation[1] = 0;
         
         viewY = 1.2;
+        
 	}
 	
 	public void setView(GL2 gl){
@@ -143,6 +143,14 @@ public class Camera implements GLEventListener{
 	
 	public void keyS(){
 		viewY -= 0.15;
+	}
+	
+	public void keyA(){
+		
+	}
+	
+	public void keyD(){
+		
 	}
 	
 	@Override
