@@ -106,6 +106,12 @@ public class Game extends JFrame implements GLEventListener{
 		//<perspective camera code here>
 
 		//Lighting
+		float[] amb = {1, 1, 1, 1.0f};
+		float[] dif = {1.0f, 1.0f, 1.0f, 1.0f};
+		float[] spe = {1.0f, 1.0f, 1.0f, 1.0f};
+		gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_AMBIENT, amb, 0);
+		gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_DIFFUSE, dif, 0);
+		gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_SPECULAR,spe, 0);
 		
 		// Day light from directly above FROM HANA code. PLAY WITH THE DIFFUSE VALUE.
 		float[] posTop = {0, 1, 0, 0f};
@@ -148,12 +154,6 @@ public class Game extends JFrame implements GLEventListener{
 		gl.glEnable(GL2.GL_LIGHT1);	
 
 
-//		float[] amb = {0.1f, 0.2f, 0.3f, 1.0f};
-//		float[] dif = {1.0f, 0.0f, 0.1f, 1.0f};
-//		float[] spe = {1.0f, 1.0f, 1.0f, 1.0f};
-//		gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_AMBIENT, amb, 0);
-//		gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_DIFFUSE, dif, 0);
-//		gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_SPECULAR,spe, 0);
 		
 		gl.glEnable(GL2.GL_NORMALIZE);
 		/****************************************************/

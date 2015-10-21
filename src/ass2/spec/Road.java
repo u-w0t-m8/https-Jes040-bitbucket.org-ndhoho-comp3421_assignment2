@@ -158,11 +158,14 @@ public class Road {
     }
     
     public void draw(GL2 gl){
-		gl.glBegin(GL2.GL_POLYGON);
+    	gl.glDisable(GL2.GL_LIGHTING);
+    	gl.glLineWidth(3);
+    	gl.glBegin(GL2.GL_TRIANGLE_STRIP);
+//		gl.glBegin(GL2.GL_POLYGON);
 		System.out.println("-----");
 		
 		for(int i = 0; i < size(); i++){
-			for(double j = 0; j <= 0.99 ; j += 0.01){
+			for(double j = 0; j <= 0.99 ; j += 0.1){
 				double[] p0 = point(i+j);
 				double x0 = p0[0];
 				double z0 = p0[1];
@@ -173,6 +176,11 @@ public class Road {
 				double x1 = p1[0];
 				double z1 = p1[1];
 				double y1 = terrain.altitude(x1, z1);
+				
+				//tangent might be not right
+				// atm im using the current point to the next point
+				
+				// Jacob: Need to calculate a point on either side to estimate the tangent, currently doing current and next
 				
 		        // k = pNext - pPrev (approximates the tangent)
 //		        m[0][2] = pNext.x - pPrev.x;
@@ -215,14 +223,18 @@ public class Road {
 		        vectorJ[2] = tangent[0] * perpendicular[1] - tangent[1] * perpendicular[0];
 		        vectorJ[3] = 0;
 		        
-		        
-
+		        gl.glColor3f(1, 1, 1);
+//		        gl.glVertex3d(x0, y0, z0);
+		        y0 += 1;
+		        gl.glVertex3d(x0-vectorJ[0], y0, z0-vectorJ[2]);
+		        gl.glVertex3d(x0+vectorJ[0], y0, z0+vectorJ[2]);
 //				double x = i+j;
 //				double y = i+j+0.01;
 //				System.out.println(x + " " + y);
 			}
 		}
 		gl.glEnd();
+		gl.glEnable(GL2.GL_LIGHTING);
     }
 
 }
