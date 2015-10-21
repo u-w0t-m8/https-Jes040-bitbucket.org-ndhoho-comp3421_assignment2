@@ -17,6 +17,11 @@ public class Road {
     
     private Terrain terrain;
     
+	private Texture texture;
+//	private String textureFileRoad = "src/ass2/images/brickRoad.jpg";
+	private String textureFileRoad = "src/ass2/images/road.jpg";
+    private String textureExtRoad = "jpg";
+    
     /** 
      * Create a new road starting at the specified point
      */

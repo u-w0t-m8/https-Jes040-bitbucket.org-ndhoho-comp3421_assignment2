@@ -34,7 +34,7 @@ public class Terrain {
 
 	//Texture - Jess Replace the PICTURE!!!
 	private Texture texture;
-	private String textureFileTerrain = "src/ass2/images/brickRoad.jpg";
+	private String textureFileTerrain = "src/ass2/images/grass.jpg";
     private String textureExtTerrain = "jpg";
 
 	
