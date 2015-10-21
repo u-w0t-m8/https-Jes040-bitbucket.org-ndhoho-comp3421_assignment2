@@ -116,7 +116,7 @@ public class Game extends JFrame implements GLEventListener{
 		// Day light from directly above FROM HANA code. PLAY WITH THE DIFFUSE VALUE.
 		float[] posTop = {0, 1, 0, 0f};
 		gl.glLightfv(GL2.GL_LIGHT1, GL2.GL_POSITION, posTop, 0);
-		float[] diffTop = {0.2f, 0.2f, 0.25f, 0f};
+		float[] diffTop = {0.5f, 0.5f, 0.55f, 0f};
 		gl.glLightfv(GL2.GL_LIGHT1, GL2.GL_DIFFUSE, diffTop, 0);
 		
 		/****************************************************/

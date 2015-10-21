@@ -25,7 +25,7 @@ public class Avatar {
 	private Texture texture1;
 
 	
-	private String textureFileCat = "src/ass2/images/treeTop2.jpg";
+	private String textureFileCat = "src/ass2/images/cat.jpg";
     private String textureExtCat = "jpg";
 
 

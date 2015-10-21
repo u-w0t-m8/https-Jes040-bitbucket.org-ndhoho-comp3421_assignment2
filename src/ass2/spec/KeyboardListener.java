@@ -60,6 +60,14 @@ public class KeyboardListener implements KeyListener, MouseMotionListener{
 			if(DEBUG) System.out.println("Key: S");
 			camera.keyS();
 			break;
+		case KeyEvent.VK_A:
+			if(DEBUG) System.out.println("Key: A");
+			camera.keyA();
+			break;
+		case KeyEvent.VK_D:
+			if(DEBUG) System.out.println("Key: D");
+			camera.keyD();
+			break;
 		}
 	}
 
