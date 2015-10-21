@@ -12,22 +12,10 @@ import javax.media.opengl.GL2;
  */
 public class Road {
 
-	//Given Code
     private List<Double> myPoints;
     private double myWidth;
     
-    //Our Code
-    private List<Polygon> myMesh;
-    // how much the cross-section is scaled before extrusion
-    private static final double SCALE = 0.01;
     private Terrain terrain;
-    
-	//Texture - Jess Replace the PICTURE!!!
-	private Texture texture;
-	private String textureFileRoad = "src/ass2/images/brickRoad.jpg";
-//	private String textureFileRoad = "src/ass2/images/road.jpg";
-    private String textureExtRoad = "jpg";
-    
     
     /** 
      * Create a new road starting at the specified point
@@ -164,181 +152,72 @@ public class Road {
         throw new IllegalArgumentException("" + i);
     }
     
-    /**
-     * The extrusion code.
-     * This method extrudes the cross section along the spine
-     */
-    private void computeMesh() {
-        Polygon cs = getCrossSection();
-        if (cs == null) {
-            return;
-        }
-        
-        List<Point> crossSection = cs.getPoints();
-        List<Point> spine = getSpine();
-        if (spine == null) {
-            return;
-        }
-
-        // Step 1: create a vertex list by moving the cross section along the spine
-        List<Point> vertices = new ArrayList<Point>();
-
-        Point pPrev;
-        Point pCurr = spine.get(0);
-        Point pNext = spine.get(1);
-        
-        // first point is a special case
-        addPoints(crossSection, vertices, pCurr, pCurr, pNext);
-        
-        // mid points
-        for (int i = 1; i < spine.size() - 1; i++) {
-            pPrev = pCurr;
-            pCurr = pNext;
-            pNext = spine.get(i+1);
-            addPoints(crossSection, vertices, pPrev, pCurr, pNext);            
-        }
-        
-        // last point is a special case
-        pPrev = pCurr;
-        pCurr = pNext;
-        addPoints(crossSection, vertices, pPrev, pCurr, pCurr);
-
-        // Step 2: connect points in successive cross-sections to form quads
-        
-        myMesh = new ArrayList<Polygon>();
-
-        int n = crossSection.size();
-        
-        // for each point along the spine
-        for (int i = 0; i < spine.size() - 1; i++) {
-            // for each point in the cross section
-            for (int j = 0; j < n; j++) {
-                // create a quad joining this point and the next one
-                // to the equivalent points in the next cross-section
-                // note: make sure they are in anti-clockwise order
-                // so they are facing outwards
-                Polygon quad = new Polygon();                
-                quad.addPoint(vertices.get(i * n + j));
-                quad.addPoint(vertices.get(i * n + (j+1) % n));
-                quad.addPoint(vertices.get((i+1) * n + (j+1) % n));
-                quad.addPoint(vertices.get((i+1) * n + j));
-                myMesh.add(quad);
-            }
-        }
-    }
-    /**
-     * Transform the points in the cross-section using the Frenet frame
-     * and add them to the vertex list.
-     * 
-     * @param crossSection The cross section
-     * @param vertices The vertex list
-     * @param pPrev The previous point on the spine
-     * @param pCurr The current point on the spine
-     * @param pNext The next point on the spine
-     */
-    private void addPoints(List<Point> crossSection, List<Point> vertices,
-            Point pPrev, Point pCurr, Point pNext) {
-
-        // compute the Frenet frame as an affine matrix
-        double[][] m = new double[4][4];
-        
-        // phi = pCurr        
-        m[0][3] = pCurr.x;
-        m[1][3] = pCurr.y;
-        m[2][3] = pCurr.z;
-        m[3][3] = 1;
-        
-        // k = pNext - pPrev (approximates the tangent)
-        m[0][2] = pNext.x - pPrev.x;
-        m[1][2] = pNext.y - pPrev.y;
-        m[2][2] = pNext.z - pPrev.z;
-        m[3][2] = 0;
-      
-        // normalise k
-        double d = Math.sqrt(m[0][2] * m[0][2] + m[1][2] * m[1][2] + m[2][2] * m[2][2]);  
-        m[0][2] /= d;
-        m[1][2] /= d;
-        m[2][2] /= d;
-        
-        // i = simple perpendicular to k
-        m[0][0] = -m[1][2];
-        m[1][0] =  m[0][2];
-        m[2][0] =  0;
-        m[3][0] =  0;
-        
-        // j = k x i
-        m[0][1] = m[1][2] * m[2][0] - m[2][2] * m[1][0];
-        m[1][1] = m[2][2] * m[0][0] - m[0][2] * m[2][0];
-        m[2][1] = m[0][2] * m[1][0] - m[1][2] * m[0][0];
-        m[3][1] =  0;
-        
-        // transform the points
-        for (Point cp : crossSection) {
-            Point q = cp.transform(m);
-            vertices.add(q);
-        }
-    }
-
-    /**
-     * Get the currently selected spine
-     * @return
-     */
-    public List<Point> getSpine() {        
-        List<Point> spinePoints = new ArrayList<Point>();
-        for(int i = 0; i < size(); i++){
-			for (double j = 0.0; j < 1.0; j += 0.1) {
-	        	double[] pointOnSpine = point(i+j);
-	        	spinePoints.add(new Point(pointOnSpine[0], terrain.altitude(pointOnSpine[0],pointOnSpine[1]), pointOnSpine[1])); //I dont get this Value.. y 
-			}
-        }
-        
-        return spinePoints;
-    }
-    
-
-    
-    /**
-     * Get the currently selected cross section
-     * @return
-     */
-    public Polygon getCrossSection() {
-        Polygon road = new Polygon();
-
-        road.addPoint(SCALE, width()/2, 0);
-        road.addPoint(-SCALE, width()/2, 0);
-        road.addPoint(-SCALE, -width()/2, 0);
-        road.addPoint(SCALE, -width()/2, 0);
-        
-        return road;
-    }
-    
-    /**
-     * 
-     * @param gl
-     */
     public void draw(GL2 gl){
-    	
-    	computeMesh();
-    	if(myMesh == null){
-    		System.out.println("myMesh = Null");
-    		return;
-    	}
-    	
-        texture = new Texture(gl,textureFileRoad,textureExtRoad,true);
-    	gl.glBindTexture(GL2.GL_TEXTURE_2D, texture.getTextureId());
-		gl.glTexEnvf(GL2.GL_TEXTURE_ENV, GL2.GL_TEXTURE_ENV_MODE, GL2.GL_MODULATE); 
+		gl.glBegin(GL2.GL_POLYGON);
+		System.out.println("-----");
 		
-    	
-        gl.glMatrixMode(GL2.GL_MODELVIEW);
-        gl.glLoadIdentity();
-    	gl.glPushMatrix();
-        gl.glColor4d(0, 0, 0, 1);
-        gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_FILL);
-        
-        for (Polygon p : myMesh) {
-            p.draw(gl);
-        }
-    	gl.glPopMatrix();
+		for(int i = 0; i < size(); i++){
+			for(double j = 0; j <= 0.99 ; j += 0.01){
+				double[] p0 = point(i+j);
+				double x0 = p0[0];
+				double z0 = p0[1];
+				double y0 = terrain.altitude(x0, z0);
+//				System.out.println(x0 + " " + y0 + " " + z0);
+				
+				double[] p1 = point(i+j+0.01);
+				double x1 = p1[0];
+				double z1 = p1[1];
+				double y1 = terrain.altitude(x1, z1);
+				
+		        // k = pNext - pPrev (approximates the tangent)
+//		        m[0][2] = pNext.x - pPrev.x;
+//		        m[1][2] = pNext.y - pPrev.y;
+//		        m[2][2] = pNext.z - pPrev.z;
+//		        m[3][2] = 0;
+			    double[] tangent = {x1 - x0, y1 - y0, z1 - z0, 0};
+//			    System.out.println("tangent: " + tangent[0] + " " + tangent[1] + " " + tangent[2]);
+			    
+		        // normalise k
+//		        double d = Math.sqrt(m[0][2] * m[0][2] + m[1][2] * m[1][2] + m[2][2] * m[2][2]);  
+//		        m[0][2] /= d;
+//		        m[1][2] /= d;
+//		        m[2][2] /= d;
+		        double d = Math.sqrt(tangent[0] * tangent[0] + tangent[1] * tangent[1] + tangent[2] * tangent[2]);  
+		        tangent[0] /= d;
+		        tangent[1] /= d;
+		        tangent[2] /= d;
+//			    System.out.println("normalise tangent: " + tangent[0] + " " + tangent[1] + " " + tangent[2]);
+			    
+		        // i = simple perpendicular to k
+//		        m[0][0] = -m[1][2];
+//		        m[1][0] =  m[0][2];
+//		        m[2][0] =  0;
+//		        m[3][0] =  0;
+		        double perpendicular[] = new double[4];
+		        perpendicular[0] = -tangent[1];
+		        perpendicular[1] = tangent[0];
+		        perpendicular[2] = 0;
+		        perpendicular[3] = 0;
+		        
+		        // j = k x i
+//		        m[0][1] = m[1][2] * m[2][0] - m[2][2] * m[1][0];
+//		        m[1][1] = m[2][2] * m[0][0] - m[0][2] * m[2][0];
+//		        m[2][1] = m[0][2] * m[1][0] - m[1][2] * m[0][0];
+//		        m[3][1] =  0;
+		        double vectorJ[] = new double[4];
+		        vectorJ[0] = tangent[1] * perpendicular[2] - tangent[2] * perpendicular[1];
+		        vectorJ[1] = tangent[2] * perpendicular[0] - tangent[0] * perpendicular[2];
+		        vectorJ[2] = tangent[0] * perpendicular[1] - tangent[1] * perpendicular[0];
+		        vectorJ[3] = 0;
+		        
+		        
 
+//				double x = i+j;
+//				double y = i+j+0.01;
+//				System.out.println(x + " " + y);
+			}
+		}
+		gl.glEnd();
     }
+
 }
