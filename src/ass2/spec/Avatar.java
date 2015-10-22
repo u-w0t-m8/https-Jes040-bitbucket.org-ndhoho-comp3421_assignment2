@@ -25,7 +25,7 @@ public class Avatar {
 	private Texture texture1;
 
 	
-	private String textureFileCat = "src/ass2/images/treeTop2.jpg";
+	private String textureFileCat = "src/ass2/images/cat.jpg";
     private String textureExtCat = "jpg";
 
 
@@ -42,7 +42,7 @@ public class Avatar {
 		double myPosition[] = Camera.getMyPosition();
 		double myAngle = Camera.getMyAngle();
 		
-        texture1 = new Texture(gl,textureFileCat,textureExtCat,true);
+        texture1 = new Texture(gl,textureFileCat,textureExtCat, true);
 		
 		if(DEBUG) System.out.println("x: " + myPosition[0] + " y: " + myPosition[2] + " z: " + myPosition[1]);
 		

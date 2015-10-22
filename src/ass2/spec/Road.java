@@ -12,6 +12,8 @@ import javax.media.opengl.GL2;
  */
 public class Road {
 
+	private static final Boolean DEBUG = false;
+
 	private List<Double> myPoints;
 	private double myWidth;
 
@@ -179,7 +181,8 @@ public class Road {
         // k = pNext - pPrev (approximates the tangent)
        
         m[0][2] = pNext[0] - pPrev[0];
-        m[1][2] = terrain.altitude(pNext[0], pNext[1]) - terrain.altitude(pPrev[0], pPrev[1]);
+//        m[1][2] = terrain.altitude(pNext[0], pNext[1]) - terrain.altitude(pPrev[0], pPrev[1]);
+        m[1][2] = 0;
         m[2][2] = pNext[1] - pPrev[1];
         m[3][2] = 0;
       
@@ -190,18 +193,25 @@ public class Road {
         m[1][2] /= d;
         m[2][2] /= d;
         
+        if(DEBUG) System.out.println("k: " + m[0][2] + " " + m[1][2] + " " + m[2][2]);
+        
         // i = simple perpendicular to k
         m[0][0] = -m[1][2];
         m[1][0] =  m[0][2];
         m[2][0] =  0;
         m[3][0] =  0;
         
+        if(DEBUG) System.out.println("i: " + m[0][0] + " " + m[1][0] + " " + m[2][0] + " " + m[3][0]);
+        
         // j = k x i
         m[0][1] = m[1][2] * m[2][0] - m[2][2] * m[1][0];
         m[1][1] = m[2][2] * m[0][0] - m[0][2] * m[2][0];
         m[2][1] = m[0][2] * m[1][0] - m[1][2] * m[0][0];
         m[3][1] =  0;
-		
+        
+        if(DEBUG) System.out.println("j: " + m[0][1] + " " + m[1][1] + " " + m[2][1] + " " + m[3][1]);
+        if(DEBUG) System.out.println();
+        
 		double vectorJ[] = new double[4];
 		vectorJ[0] = m[0][1];
 		vectorJ[1] = m[1][1];
@@ -238,8 +248,13 @@ public class Road {
 		double height = 0.01;
 		double width = width()/2;
 		
+		if(DEBUG) System.out.println("***************");
+		if(DEBUG) System.out.println(p0[0] + " " + p0[1] + " " + terrain.altitude(p0[0], p0[1]));
+		if(DEBUG) System.out.println(p2[0] + " " + p2[1] + " " + terrain.altitude(p2[0], p2[1]));
+
 		double[] n0 = normalToTangent(p0 ,p1 ,p2);
-		
+		if(DEBUG) System.out.println("***************");
+
 		gl.glNormal3d(0,0,1);
 		gl.glTexCoord2d(1, 1);
 		gl.glVertex3d(p1[0]-(n0[0]*width), terrain.altitude(p1[0], p1[1]) + height, p1[1]-(n0[2]*width));

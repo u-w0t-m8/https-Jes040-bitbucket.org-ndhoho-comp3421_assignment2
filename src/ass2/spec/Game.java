@@ -119,6 +119,22 @@ public class Game extends JFrame implements GLEventListener{
 		float[] diffTop = {0.2f, 0.2f, 0.25f, 0f};
 		gl.glLightfv(GL2.GL_LIGHT1, GL2.GL_DIFFUSE, diffTop, 0);
 		
+		
+		if(keyboardlistener.getTorch() == true){
+			gl.glEnable(GL2.GL_LIGHT2);
+		} else {
+			gl.glDisable(GL2.GL_LIGHT2);
+		}
+		
+//		float[] torchPos = {1, 2 ,1, 1};
+		float[] torchPos = {0.0f, 2, 0.0f, 1.0f};
+		float[] torchDif = {0, 0, 1, 1};
+		float[] spotDirection = {0.0f, -1.0f, 0.0f}; // Spotlight direction.
+
+		gl.glLightfv(GL2.GL_LIGHT2, GL2.GL_POSITION, torchPos, 0);
+		gl.glLightfv(GL2.GL_LIGHT2, GL2.GL_DIFFUSE, torchDif, 1);
+		gl.glLighti(GL2.GL_LIGHT2, GL2.GL_SPOT_CUTOFF, 8);
+		gl.glLightfv(GL2.GL_LIGHT2, GL2.GL_SPOT_DIRECTION, spotDirection,0);   
 		/****************************************************/
 
 		//draw terrain
@@ -153,7 +169,17 @@ public class Game extends JFrame implements GLEventListener{
 		// Light from directly above
 		gl.glEnable(GL2.GL_LIGHT1);	
 
-
+    	// Light property vectors.
+    	float lightAmb[] = {0.0f, 0.0f, 0.0f, 1.0f};
+    	float lightDifAndSpec[] = {1.0f, 1.0f, 1.0f, 1.0f};
+    	float globAmb[] = {0.05f, 0.05f, 0.05f, 1.0f};
+    	// Light properties.
+    	gl.glLightfv(GL2.GL_LIGHT2, GL2.GL_AMBIENT, lightAmb,0);
+    	gl.glLightfv(GL2.GL_LIGHT2, GL2.GL_DIFFUSE, lightDifAndSpec,0);
+    	gl.glLightfv(GL2.GL_LIGHT2, GL2.GL_SPECULAR, lightDifAndSpec,0);
+    	
+		//Torch
+		gl.glEnable(GL2.GL_LIGHT2);
 		
 		gl.glEnable(GL2.GL_NORMALIZE);
 		/****************************************************/
