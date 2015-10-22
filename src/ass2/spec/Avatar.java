@@ -33,7 +33,7 @@ public class Avatar {
 		this.terrain = terrain;
 	}
 
-	public void draw(GL2 gl){
+	public void draw(GL2 gl){ 
 		GLU glu = new GLU();
 		GLUT glut = new GLUT();
 

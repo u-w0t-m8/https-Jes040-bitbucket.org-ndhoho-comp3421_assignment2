@@ -6,41 +6,41 @@ import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
 
 public class Camera implements GLEventListener{
-		
+
 	private static final Boolean DEBUG = false;
 
 	private Terrain terrain;
-	
+
 	private double aspect; 
-	
+
 	private static double myAngle;
-	
+
 	private static double[] myPosition;
 	private static double[] myRotation;
-	
+
 	private double viewY;	
 	public Camera(Terrain terrain){
 		this.terrain = terrain;
 		aspect = 1.0;
-		
+
 		myAngle = 90.3;
-		
+
 		//x, z, y
-        myPosition = new double[3];
-        myPosition[0] = 0;
-        myPosition[1] = 0;
-        myPosition[2] = terrain.altitude(0,0);
-        
-        myRotation = new double[2];
-        myRotation[0] = 0;
-        myRotation[1] = 0;
-        
-        viewY = 1.2;
-        
+		myPosition = new double[3];
+		myPosition[0] = 0;
+		myPosition[1] = 0;
+		myPosition[2] = terrain.altitude(0,0);
+
+		myRotation = new double[2];
+		myRotation[0] = 0;
+		myRotation[1] = 0;
+
+		viewY = 1.2;
+
 	}
-	
+
 	public void setView(GL2 gl){
-		if(DEBUG) System.out.println("Camera - setView");
+		lightingForTorch(gl);
 		
 		gl.glMatrixMode(GL2.GL_PROJECTION);
 		gl.glLoadIdentity();
@@ -52,25 +52,25 @@ public class Camera implements GLEventListener{
 		//Number took from teapotview week4 example code
 		//FUCKING MAGICAL CODE now i need to figure out the right number
 		//gluLookAt(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ)
-		
+
 		myRotation[0] = Math.sin(myAngle);
 		myRotation[1] = -Math.cos(myAngle);
 
 		double eyeX = myPosition[0] - myRotation[0];
-		
+
 		//Border restrictions
-		if(myPosition[0] < 0){
+		if(myPosition[0] <= 0){
 			myPosition[0] = 0;
-		} else if(myPosition[1] < 0){
+		} else if(myPosition[1] <= 0){
 			myPosition[1] = 0;
 		} else if(myPosition[0] > terrain.size().getWidth() - 1){
 			myPosition[0] = terrain.size().getWidth() - 1;
 		} else if (myPosition[1] > terrain.size().getHeight() - 1){
 			myPosition[1] = terrain.size().getHeight() - 1;
 		}
-		
+
 		if(DEBUG) System.out.println(myPosition[0] + " " + myPosition[1] + " " + myPosition[2] + " " + terrain.size().getWidth());
-		
+
 		myPosition[2] = terrain.altitude(myPosition[0],myPosition[1]);
 
 		double eyeY;
@@ -81,94 +81,116 @@ public class Camera implements GLEventListener{
 		} else {
 			eyeY = myPosition[2];
 		}
-		
+
 		if(DEBUG) System.out.println(eyeY);
-		
-    	double eyeZ = myPosition[1] - myRotation[1];
-		
-    	double viewX = myPosition[0] + myRotation[0];
-    	double viewZ = myPosition[1] + myRotation[1];
-    	
-    	if(DEBUG) System.out.println(myAngle + " " + myRotation[0] + " " + myRotation[1]);
-    	
-        glu.gluLookAt(eyeX, eyeY+2, eyeZ, viewX, viewY ,viewZ, 0, 1, 0);
-        
-        if(DEBUG) System.out.println(viewY);
+
+		double eyeZ = myPosition[1] - myRotation[1];
+
+		double viewX = myPosition[0] + myRotation[0];
+		double viewZ = myPosition[1] + myRotation[1];
+
+		if(DEBUG) System.out.println(myAngle + " " + myRotation[0] + " " + myRotation[1]);
+
+		glu.gluLookAt(eyeX, eyeY+2, eyeZ, viewX, viewY ,viewZ, 0, 1, 0);
+
+		if(DEBUG) System.out.println(viewY);
 	}
 
 	public static double getMyAngle(){
 		return myAngle;
 	}
-	
+
 	public static double[] getMyPosition(){
 		return myPosition;
 	}
-	
+
 	public static double[] getMyRotation(){
 		return myRotation;
 	}
-	
+
 	public void setAspectRatio(double ratio){
 		aspect = ratio;
 		if(DEBUG) System.out.println(aspect);
 	}
-	
+
 	public void forward(){
 		double scale = 0.2;
 		myPosition[0] += myRotation[0] * scale;
 		myPosition[1] += myRotation[1] * scale;
 	}
-	
+
 	public void backward(){
 		double scale = 0.2;
 		myPosition[0] -= myRotation[0] * scale;
 		myPosition[1] -= myRotation[1] * scale;
 	}
-	
+
 	public void turnLeft(){
 		myAngle += -0.1;
 		myRotation[0] = Math.sin(myAngle);
 		myRotation[1] = -Math.cos(myAngle);
 	}
-	
+
 	public void turnRight(){
 		myAngle += 0.1;
 		myRotation[0] = Math.sin(myAngle);
 		myRotation[1] = -Math.cos(myAngle);
 	}
-	
+
 	public void keyW(){
 		viewY += 0.15;
 	}
-	
+
 	public void keyS(){
 		viewY -= 0.15;
 	}
-	
+
 	public void keyA(){
-		
+
 	}
-	
+
 	public void keyD(){
-		
+
 	}
-	
+
+
+	public void lightingForTorch(GL2 gl){
+		// Light property vectors.
+		float lightAmb[] = {0.0f, 0.0f, 0.0f, 1.0f};
+		float lightDifAndSpec[] = {1.0f, 1.0f, 1.0f, 1.0f};
+		float globAmb[] = {0.05f, 0.05f, 0.05f, 1.0f};
+		// Light properties.
+		gl.glLightfv(GL2.GL_LIGHT2, GL2.GL_AMBIENT, lightAmb,0);
+		gl.glLightfv(GL2.GL_LIGHT2, GL2.GL_DIFFUSE, lightDifAndSpec,0);
+		gl.glLightfv(GL2.GL_LIGHT2, GL2.GL_SPECULAR, lightDifAndSpec,0);
+
+		//	float[] torchPos = {1, 2 ,1, 1};
+		float[] torchPos = {0.0f, 2f, 0.0f, 1.0f};
+		float[] torchDif = {0, 0, 1, 1};
+		float[] spotDirection = {0.0f, -1.0f, 0.0f}; // Spotlight direction.
+
+		gl.glLightfv(GL2.GL_LIGHT2, GL2.GL_POSITION, torchPos, 0);
+		gl.glLightfv(GL2.GL_LIGHT2, GL2.GL_DIFFUSE, torchDif, 1);
+		gl.glLighti(GL2.GL_LIGHT2, GL2.GL_SPOT_CUTOFF, 8);
+		gl.glLightfv(GL2.GL_LIGHT2, GL2.GL_SPOT_DIRECTION, spotDirection,0); 
+	}
+
 	@Override
 	public void display(GLAutoDrawable arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void dispose(GLAutoDrawable arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void init(GLAutoDrawable arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
