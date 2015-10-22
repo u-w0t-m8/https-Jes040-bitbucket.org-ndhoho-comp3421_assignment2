@@ -78,10 +78,7 @@ public class KeyboardListener implements KeyListener, MouseMotionListener{
 			} else {
 				torch = false;
 			}
-
 		}
-
-
 	}
 
 	public boolean getTorch(){

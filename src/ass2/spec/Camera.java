@@ -17,7 +17,8 @@ public class Camera implements GLEventListener{
 
 	private static double[] myPosition;
 	private static double[] myRotation;
-
+	private static double[] myTranslation;
+	
 	private double viewY;	
 	public Camera(Terrain terrain){
 		this.terrain = terrain;
@@ -26,17 +27,21 @@ public class Camera implements GLEventListener{
 		myAngle = 90.3;
 
 		//x, z, y
-		myPosition = new double[3];
-		myPosition[0] = 0;
-		myPosition[1] = 0;
-		myPosition[2] = terrain.altitude(0,0);
-
-		myRotation = new double[2];
-		myRotation[0] = 0;
-		myRotation[1] = 0;
-
-		viewY = 1.2;
-
+        myPosition = new double[3];
+        myPosition[0] = 0;
+        myPosition[1] = 0;
+        myPosition[2] = terrain.altitude(0,0);
+        
+        myRotation = new double[2];
+        myRotation[0] = 0;
+        myRotation[1] = 0;
+        
+        myTranslation = new double[3];
+        myTranslation[0] = 0;
+        myTranslation[1] = 0;
+        myTranslation[2] = terrain.altitude(0, 0);
+        
+        viewY = 1.2;
 	}
 
 	public void setView(GL2 gl){
@@ -146,11 +151,11 @@ public class Camera implements GLEventListener{
 	}
 
 	public void keyA(){
-
+		//-= x value
 	}
 
 	public void keyD(){
-
+		//+= x value
 	}
 
 
