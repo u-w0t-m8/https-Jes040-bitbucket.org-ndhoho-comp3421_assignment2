@@ -218,6 +218,12 @@ public class Road {
 		vectorJ[2] = m[2][1];
 		vectorJ[3] = m[3][1];
 
+		//Normalising the Vector. (Jess is a genius)
+        double t = Math.sqrt(vectorJ[0] * vectorJ[0] + vectorJ[1] * vectorJ[1] + vectorJ[2] * vectorJ[2]);  
+        vectorJ[0] /= t;
+        vectorJ[1] /= t;
+        vectorJ[2] /= t;
+		
 		return vectorJ;
 	}
 
