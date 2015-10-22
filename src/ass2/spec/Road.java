@@ -261,7 +261,7 @@ public class Road {
 		double[] n0 = normalToTangent(p0 ,p1 ,p2);
 		if(DEBUG) System.out.println("***************");
 
-		gl.glNormal3d(0,0,1);
+		gl.glNormal3d(n0[0],n0[1],n0[2]);
 		gl.glTexCoord2d(1, 1);
 		gl.glVertex3d(p1[0]-(n0[0]*width), terrain.altitude(p1[0], p1[1]) + height, p1[1]-(n0[2]*width));
 //		gl.glVertex3d(p1[0]-(n0[0]*width), 0 + height, p0[1]-(n0[2]*width));
@@ -274,6 +274,7 @@ public class Road {
 			p2 = point(i+0.01); //next
 			
 			n0 = normalToTangent(p0 ,p1 ,p2);
+			gl.glNormal3d(n0[0],n0[1],n0[2]);
     		gl.glTexCoord2d(1, i);
 			gl.glVertex3d(p1[0]-(n0[0]*width), terrain.altitude(p1[0], p0[1]) + height, p1[1]-(n0[2]*width));
 //			gl.glVertex3d(p1[0]-(n0[0]*width), 0 + height, p0[1]-(n0[2]*width));
@@ -287,7 +288,7 @@ public class Road {
 		p1 = p2;
 		
 		n0 = normalToTangent(p0 ,p1 ,p1);
-
+		gl.glNormal3d(n0[0],n0[1],n0[2]);
     	gl.glTexCoord2d(1, 0);
 		gl.glVertex3d(p1[0]-(n0[0]*width), terrain.altitude(p1[0], p0[1]) + height, p1[1]-(n0[2]*width));
     	gl.glTexCoord2d(0, 0);
