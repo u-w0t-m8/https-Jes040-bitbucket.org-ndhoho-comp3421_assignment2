@@ -102,35 +102,48 @@ public class Game extends JFrame implements GLEventListener{
 		gl.glEnable(GL2.GL_CULL_FACE);
 		gl.glCullFace(GL2.GL_BACK);
 
-		
+
 		//<perspective camera code here>
 
 		//Lighting
 		float[] amb = {1, 1, 1, 1.0f};
 		float[] dif = {1.0f, 1.0f, 1.0f, 1.0f};
 		float[] spe = {1.0f, 1.0f, 1.0f, 1.0f};
-		gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_AMBIENT, amb, 0);
-		gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_DIFFUSE, dif, 0);
-		gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_SPECULAR,spe, 0);
+
+		float[] ambLow = {0.2f, 0.2f, 0.2f, 1.0f};
+		float[] difLow = {0.7f, 0.7f, 0.7f, 1f};
+		float[] speLow = {0.7f, 0.7f, 0.7f, 1f};
 		
-		// Day light from directly above FROM HANA code. PLAY WITH THE DIFFUSE VALUE.
-		float[] posTop = {0, 1, 0, 0f};
-		gl.glLightfv(GL2.GL_LIGHT1, GL2.GL_POSITION, posTop, 0);
-		float[] diffTop = {0.5f, 0.5f, 0.55f, 0f};
-		gl.glLightfv(GL2.GL_LIGHT1, GL2.GL_DIFFUSE, diffTop, 0);
-		
+		float[] posTop = {(float)myTerrain.size().getWidth()/2, 10, (float)myTerrain.size().getHeight()/2, 0f};
+		gl.glDisable(GL2.GL_LIGHT1);
+		gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, posTop, 0);
+
 		
 		if(keyboardlistener.getTorch() == true){
 			gl.glEnable(GL2.GL_LIGHT2);
+			gl.glDisable(GL2.GL_LIGHT1);
+			//Lower the Light0 Amb when torch on
+			gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_AMBIENT, ambLow, 0);
+			gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_DIFFUSE, difLow, 0);
+			gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_SPECULAR,speLow, 0);
 		} else {
 			gl.glDisable(GL2.GL_LIGHT2);
+			gl.glEnable(GL2.GL_LIGHT1);
+			gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_AMBIENT, amb, 0);
+			gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_DIFFUSE, dif, 0);
+			gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_SPECULAR,spe, 0);
 		}
 		
+		// Day light from directly above FROM HANA code. PLAY WITH THE DIFFUSE VALUE.
+		gl.glLightfv(GL2.GL_LIGHT1, GL2.GL_POSITION, posTop, 0);
+		float[] diffTop = {0.5f, 0.5f, 0.55f, 0f};
+		gl.glLightfv(GL2.GL_LIGHT1, GL2.GL_DIFFUSE, diffTop, 0);
+
 		/****************************************************/
 
 		//draw terrain
 		myTerrain.draw(gl);
-		
+
 		//camera View
 		camera.setView(gl);
 	}
@@ -161,11 +174,11 @@ public class Game extends JFrame implements GLEventListener{
 		gl.glEnable(GL2.GL_LIGHT1);	
 		//Torch
 		gl.glEnable(GL2.GL_LIGHT2);
-		
+
 		gl.glEnable(GL2.GL_NORMALIZE);
 		/****************************************************/
 
-        gl.glEnable(GL.GL_TEXTURE_2D);
+		gl.glEnable(GL.GL_TEXTURE_2D);
 	}
 
 	@Override
@@ -174,7 +187,7 @@ public class Game extends JFrame implements GLEventListener{
 		GL2 gl = drawable.getGL().getGL2();
 		gl.glMatrixMode(GL2.GL_PROJECTION);
 		gl.glLoadIdentity();
-//		gl.glOrtho(-9, 9, -9, 9, -9, 9); // testing
+		//		gl.glOrtho(-9, 9, -9, 9, -9, 9); // testing
 		double aspect = (1.0 * width) / height;
 		camera.setAspectRatio(aspect);
 	}

@@ -161,23 +161,21 @@ public class Camera implements GLEventListener{
 
 	public void lightingForTorch(GL2 gl){
 		// Light property vectors.
-		float lightAmb[] = {0.0f, 0.0f, 0.0f, 1.0f};
+		float lightAmb[] = {1.0f, 0.0f, 0.0f, 1.0f};
 		float lightDifAndSpec[] = {1.0f, 1.0f, 1.0f, 1.0f};
-		float globAmb[] = {0.05f, 0.05f, 0.05f, 1.0f};
 		// Light properties.
 		gl.glLightfv(GL2.GL_LIGHT2, GL2.GL_AMBIENT, lightAmb,0);
 		gl.glLightfv(GL2.GL_LIGHT2, GL2.GL_DIFFUSE, lightDifAndSpec,0);
 		gl.glLightfv(GL2.GL_LIGHT2, GL2.GL_SPECULAR, lightDifAndSpec,0);
 
-		//	float[] torchPos = {1, 2 ,1, 1};
-		float[] torchPos = {0.0f, 2f, 0.0f, 1.0f};
-		float[] torchDif = {0, 0, 1, 1};
-		float[] spotDirection = {0.0f, -1.0f, 0.0f}; // Spotlight direction.
-
+		float[] torchPos = {(float) (myPosition[0]), (float) myPosition[2] + 1, (float) (myPosition[1]), 1.0f};
+		float[] torchDif = {1, 0, 1, 1};
+		float[] spotDirection = {(float) (myRotation[0]), -1.0f, (float) (myRotation[1])}; // Spotlight direction.
+		
 		gl.glLightfv(GL2.GL_LIGHT2, GL2.GL_POSITION, torchPos, 0);
 		gl.glLightfv(GL2.GL_LIGHT2, GL2.GL_DIFFUSE, torchDif, 1);
-		gl.glLighti(GL2.GL_LIGHT2, GL2.GL_SPOT_CUTOFF, 8);
-		gl.glLightfv(GL2.GL_LIGHT2, GL2.GL_SPOT_DIRECTION, spotDirection,0); 
+		gl.glLighti(GL2.GL_LIGHT2, GL2.GL_SPOT_CUTOFF, 15);
+		gl.glLightfv(GL2.GL_LIGHT2, GL2.GL_SPOT_DIRECTION, spotDirection,0);
 	}
 
 	@Override
