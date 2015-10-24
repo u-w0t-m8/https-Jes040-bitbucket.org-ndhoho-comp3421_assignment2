@@ -9,3 +9,6 @@ Use arrow keys to move avatar around
 use mouse to click and drag screen to move
 
 
+Contributors
+Jessica Tsang z3332686 H16A Thursday 4-5pm COMP3421
+Andy Ho 3419948 H16A Thursday 4-5pm COMP3421
