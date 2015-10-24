@@ -6,3 +6,6 @@ Keys
 "1" == night mode with torch [on/off]
 
 Use arrow keys to move avatar around
+use mouse to click and drag screen to move
+
+

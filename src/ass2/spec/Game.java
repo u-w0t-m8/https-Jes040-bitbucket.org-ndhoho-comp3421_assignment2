@@ -85,7 +85,7 @@ public class Game extends JFrame implements GLEventListener{
 
 		/************* JESS'S * POTATO * CODE***************/
 
-		//clear the colour buffer incase of garbage
+		//clear the colour buffer in case of garbage
 
 		// set background colour
 		gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
@@ -122,7 +122,7 @@ public class Game extends JFrame implements GLEventListener{
 		if(keyboardlistener.getTorch() == true){
 			gl.glEnable(GL2.GL_LIGHT2);
 			gl.glDisable(GL2.GL_LIGHT1);
-			//Lower the Light0 Amb when torch on
+			//Lower the Light0 ambient when torch on
 			gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_AMBIENT, ambLow, 0);
 			gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_DIFFUSE, difLow, 0);
 			gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_SPECULAR,speLow, 0);
@@ -134,7 +134,7 @@ public class Game extends JFrame implements GLEventListener{
 			gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_SPECULAR,spe, 0);
 		}
 		
-		// Day light from directly above FROM HANA code. PLAY WITH THE DIFFUSE VALUE.
+		// Day light from directly above, play with diffuse value
 		gl.glLightfv(GL2.GL_LIGHT1, GL2.GL_POSITION, posTop, 0);
 		float[] diffTop = {0.5f, 0.5f, 0.55f, 0f};
 		gl.glLightfv(GL2.GL_LIGHT1, GL2.GL_DIFFUSE, diffTop, 0);
