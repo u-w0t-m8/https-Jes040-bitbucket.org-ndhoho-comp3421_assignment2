@@ -116,7 +116,7 @@ public class Game extends JFrame implements GLEventListener{
 		
 		float[] posTop = {(float)myTerrain.size().getWidth()/2, 10, (float)myTerrain.size().getHeight()/2, 0f};
 		gl.glDisable(GL2.GL_LIGHT1);
-		gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, posTop, 0);
+		//gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, posTop, 0);
 
 		
 		if(keyboardlistener.getTorch() == true){

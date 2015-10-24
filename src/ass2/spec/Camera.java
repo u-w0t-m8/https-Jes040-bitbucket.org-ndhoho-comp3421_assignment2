@@ -151,11 +151,11 @@ public class Camera implements GLEventListener{
 	}
 
 	public void keyA(){
-		//-= x value
+		myPosition[0] += 0.15; 
 	}
 
 	public void keyD(){
-		//+= x value
+		myPosition[0] -= 0.15;
 	}
 
 
