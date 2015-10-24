@@ -110,7 +110,7 @@ public class Avatar {
 //		glu.gluQuadricNormals(sphere, GL2.GL_SMOOTH);
 		glu.gluSphere(sphere, sphereRadius, SLICES, STACKS);
         glu.gluQuadricTexture(sphere, true);
-//        gl.glBindTexture(GL2.GL_TEXTURE_2D, texture1.getTextureId());
+        gl.glBindTexture(GL2.GL_TEXTURE_2D, texture1.getTextureId());
 		gl.glTexEnvf(GL2.GL_TEXTURE_ENV, GL2.GL_TEXTURE_ENV_MODE, GL2.GL_MODULATE); 
         glu.gluSphere(sphere, sphereRadius, SLICES, STACKS);
         gl.glDisable(GL2.GL_TEXTURE_GEN_S); 
@@ -118,10 +118,17 @@ public class Avatar {
 
 		//Tail
 		gl.glPushMatrix();
+	    	gl.glEnable(GL2.GL_TEXTURE_GEN_S);
+		    gl.glEnable(GL2.GL_TEXTURE_GEN_T);
 			gl.glTranslated(-sphereRadius+0.07, 0, -sphereRadius+0.07);
 			gl.glRotated(225, 0, 1, 0);
 			gl.glRotated(-60, 1, 0, 0);
 			glut.glutSolidCylinder(0.015, 0.4,SLICES,STACKS);
+	        glu.gluQuadricNormals(cylinder, GL2.GL_SMOOTH);
+	        glu.gluQuadricTexture(cylinder, true);
+	    	gl.glBindTexture(GL2.GL_TEXTURE_2D, texture1.getTextureId());
+			gl.glTexEnvf(GL2.GL_TEXTURE_ENV, GL2.GL_TEXTURE_ENV_MODE, GL2.GL_MODULATE);
+	        
 		gl.glPopMatrix();
 
 		gl.glTranslated(0, sphereRadius+sphere1Radius, 0);
@@ -129,7 +136,10 @@ public class Avatar {
 		//Upper Body
 		GLUquadric sphere1 = glu.gluNewQuadric();
 		glu.gluQuadricNormals(sphere1, GL2.GL_SMOOTH);
+		gl.glTexEnvf(GL2.GL_TEXTURE_ENV, GL2.GL_TEXTURE_ENV_MODE, GL2.GL_MODULATE); 
 		glu.gluSphere(sphere1, sphere1Radius, SLICES, STACKS);
+        gl.glDisable(GL2.GL_TEXTURE_GEN_S); 
+	    gl.glDisable(GL2.GL_TEXTURE_GEN_T);
 
 		//The Ears
 		gl.glPushMatrix();
