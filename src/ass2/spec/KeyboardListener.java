@@ -73,6 +73,7 @@ public class KeyboardListener implements KeyListener, MouseMotionListener{
 			break;
 			
 		case KeyEvent.VK_1:
+			if(!DEBUG) System.out.println("Key: 1" + torch);
 			if(torch == false){
 				torch = true;
 			} else {
