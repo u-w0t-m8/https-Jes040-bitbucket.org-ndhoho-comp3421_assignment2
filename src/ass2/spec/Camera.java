@@ -55,7 +55,6 @@ public class Camera implements GLEventListener{
 		glu.gluPerspective(80, aspect, 1, 20);
   
 		//Number took from teapotview week4 example code
-		//FUCKING MAGICAL CODE now i need to figure out the right number
 		//gluLookAt(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ)
 
 		myRotation[0] = Math.sin(myAngle);
@@ -150,14 +149,19 @@ public class Camera implements GLEventListener{
 		viewY -= 0.15;
 	}
 
+	/*
 	public void keyA(){
-		myPosition[0] += 0.15; 
+		myAngle += -0.1;
+		myRotation[0] = Math.sin(myAngle);
+		myRotation[1] = -Math.cos(myAngle);
 	}
 
 	public void keyD(){
-		myPosition[0] -= 0.15;
+		myAngle += 0.1;
+		myRotation[0] = Math.sin(myAngle);
+		myRotation[1] = -Math.cos(myAngle);
 	}
-
+	*/
 
 	public void lightingForTorch(GL2 gl){
 		// Light property vectors.

@@ -62,7 +62,7 @@ public class KeyboardListener implements KeyListener, MouseMotionListener{
 			camera.keyS();
 			break;
 
-		case KeyEvent.VK_A:
+		/*case KeyEvent.VK_A:
 			if(DEBUG) System.out.println("Key: A");
 			camera.keyA();
 			break;
@@ -70,7 +70,7 @@ public class KeyboardListener implements KeyListener, MouseMotionListener{
 		case KeyEvent.VK_D:
 			if(DEBUG) System.out.println("Key: D");
 			camera.keyD();
-			break;
+			break;*/
 			
 		case KeyEvent.VK_1:
 			if(!DEBUG) System.out.println("Key: 1" + torch);
@@ -79,7 +79,10 @@ public class KeyboardListener implements KeyListener, MouseMotionListener{
 			} else {
 				torch = false;
 			}
+		case KeyEvent.VK_2:
+			
 		}
+			
 	}
 
 	public boolean getTorch(){

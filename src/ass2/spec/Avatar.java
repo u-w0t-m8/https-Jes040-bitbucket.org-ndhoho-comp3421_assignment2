@@ -23,11 +23,12 @@ public class Avatar {
 	
 	//textures
 	private Texture texture1;
+	private Texture texture2;
 
 	
 	private String textureFileCat = "src/ass2/images/cat.jpg";
+	private String textureFileCat2 = "src/ass2/images/cat2.jpg";
     private String textureExtCat = "jpg";
-
 
 	public Avatar(Terrain terrain){
 		this.terrain = terrain;
@@ -43,6 +44,7 @@ public class Avatar {
 		double myAngle = Camera.getMyAngle();
 		
         texture1 = new Texture(gl,textureFileCat,textureExtCat, true);
+        texture2 = new Texture(gl, textureFileCat2, textureExtCat, true);
 		
 		if(DEBUG) System.out.println("x: " + myPosition[0] + " y: " + myPosition[2] + " z: " + myPosition[1]);
 		
@@ -114,7 +116,7 @@ public class Avatar {
 		gl.glTexEnvf(GL2.GL_TEXTURE_ENV, GL2.GL_TEXTURE_ENV_MODE, GL2.GL_MODULATE); 
         glu.gluSphere(sphere, sphereRadius, SLICES, STACKS);
         gl.glDisable(GL2.GL_TEXTURE_GEN_S); 
-	    gl.glDisable(GL2.GL_TEXTURE_GEN_T);
+	    //gl.glDisable(GL2.GL_TEXTURE_GEN_T);
 
 		//Tail
 		gl.glPushMatrix();
@@ -126,7 +128,7 @@ public class Avatar {
 			glut.glutSolidCylinder(0.015, 0.4,SLICES,STACKS);
 	        glu.gluQuadricNormals(cylinder, GL2.GL_SMOOTH);
 	        glu.gluQuadricTexture(cylinder, true);
-	    	gl.glBindTexture(GL2.GL_TEXTURE_2D, texture1.getTextureId());
+	    	gl.glBindTexture(GL2.GL_TEXTURE_2D, texture2.getTextureId());
 			gl.glTexEnvf(GL2.GL_TEXTURE_ENV, GL2.GL_TEXTURE_ENV_MODE, GL2.GL_MODULATE);
 	        
 		gl.glPopMatrix();
@@ -136,6 +138,7 @@ public class Avatar {
 		//Upper Body
 		GLUquadric sphere1 = glu.gluNewQuadric();
 		glu.gluQuadricNormals(sphere1, GL2.GL_SMOOTH);
+    	gl.glBindTexture(GL2.GL_TEXTURE_2D, texture1.getTextureId());
 		gl.glTexEnvf(GL2.GL_TEXTURE_ENV, GL2.GL_TEXTURE_ENV_MODE, GL2.GL_MODULATE); 
 		glu.gluSphere(sphere1, sphere1Radius, SLICES, STACKS);
         gl.glDisable(GL2.GL_TEXTURE_GEN_S); 
@@ -145,7 +148,7 @@ public class Avatar {
 		gl.glPushMatrix();
 	    	gl.glEnable(GL2.GL_TEXTURE_GEN_S);
 		    gl.glEnable(GL2.GL_TEXTURE_GEN_T);
-	    	gl.glBindTexture(GL2.GL_TEXTURE_2D, texture1.getTextureId());
+	    	gl.glBindTexture(GL2.GL_TEXTURE_2D, texture2.getTextureId());
 			gl.glTexEnvf(GL2.GL_TEXTURE_ENV, GL2.GL_TEXTURE_ENV_MODE, GL2.GL_MODULATE); 
 			gl.glTranslated(0.05, sphere1Radius+0.025, -0.05);
 			gl.glRotated(45, 0, 1, 0);
