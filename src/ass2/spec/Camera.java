@@ -53,7 +53,7 @@ public class Camera implements GLEventListener{
 
 		//gluPerspective(fieldOfView, aspectRatio, near, far)
 		glu.gluPerspective(80, aspect, 1, 20);
-
+  
 		//Number took from teapotview week4 example code
 		//FUCKING MAGICAL CODE now i need to figure out the right number
 		//gluLookAt(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ)
